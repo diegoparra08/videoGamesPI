@@ -54,8 +54,8 @@ const getGameByID = async (id) => {
         };
         return gameDetail;
 
-    } 
-    
+    }
+
     if (/^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/.test(id)) {
         // Si el ID es un UUID, busca en la base de datos
         const game = await Videogame.findByPk(id);
@@ -68,32 +68,47 @@ const getGameByID = async (id) => {
     }
 };
 
-const getGameByName = async(name) => {
- const apiResponse = await axios.get(`${URL}?key=${API_KEY}&search=${name}`)
+const getGameByName = async (name) => {
+    const apiResponse = await axios.get(`${URL}?key=${API_KEY}&search=${name}`)
 
- const apiGames = apiResponse.data.results;
+    const apiGames = apiResponse.data.results;
 
-        const dbGames = await Videogame.findAll({
-            where: {
-                name: {
-                    [Op.iLike]: `%${name}%`, // Busca el nombre independientemente de mayúsculas o minúsculas
-                }
-            },
-            limit: 15
-        });
+    const dbGames = await Videogame.findAll({
+        where: {
+            name: {
+                [Op.iLike]: `%${name}%`, // Busca el nombre independientemente de mayúsculas o minúsculas
+            }
+        },
+        limit: 15
+    });
 
-        const combinedGames = [...apiGames, ...dbGames];
-        return combinedGames.map(game => ({
-            id: game.id,
-            name: game.name,
-            platforms: game.platforms.map(platform => ({
-                name: platform.platform.name,
-            })),
-            released: game.released,
-            image: game.background_image,
-            rating: game.rating,
-        }));
-}
+    const combinedGames = [...apiGames, ...dbGames];
+    return combinedGames.map(game => ({
+        id: game.id,
+        name: game.name,
+        platforms: game.platforms.map(platform => ({
+            name: platform.platform.name,
+        })),
+        released: game.released,
+        image: game.background_image,
+        rating: game.rating,
+    }));
+};
+
+const postNewGame = async ({ name, description, platforms, released, image, rating }) => {
+
+    const gameToAdd = await Videogame.create({
+        
+        name,
+        description,
+        platforms,
+        released,
+        image,
+        rating,
+    });
+    return gameToAdd;
+};
 
 
-module.exports = { getAllGames, getGameByID, getGameByName }
+
+module.exports = { getAllGames, getGameByID, getGameByName, postNewGame }

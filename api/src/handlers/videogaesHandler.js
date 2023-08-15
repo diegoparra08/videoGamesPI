@@ -1,10 +1,10 @@
-const { getAllGames, getGameByID, getGameByName } = require('../controllers/videogamesController');
+const { getAllGames, getGameByID, getGameByName, postNewGame } = require('../controllers/videogamesController');
 
 const getAll = async (req, res) => {
     const { name } = req.query;
 
     try {
-        if(name) {
+        if (name) {
             const gamesFound = await getGameByName(name);
 
             if (gamesFound.length === 0) {
@@ -37,25 +37,22 @@ const getByID = async (req, res) => {
     }
 };
 
-// const getByName = async (req, res) => {
-//     const { name } = req.query;
-//     try {
-//         if (!name) {
-//             throw new Error('No Name was provided!')
-//         } else {
-//             const gamesFound = await getGameByName(name);
+const postGame = async (req, res) => {
 
-//             if (gamesFound.length === 0) {
-//                 return res.status(404).json({ message: `Not matches were found for ${name}` })
-//             } else {
-//                 return res.status(201).json(gamesFound);
-//             }
-//         }
-//     } catch (error) {
-//         return res.status(500).json({ error: error.message });
-//     }
-// };
+    try {
+        const newGame = req.body;
 
+        const { name, description, platforms, released, image, rating } = newGame;
 
+        if ( !name || !description || !platforms || !released || !image || !rating) {
+            throw new Error('Missing game info!')
+        } else {
+            const gameToAdd = await postNewGame({ name, description, platforms, released, image, rating })
+            return res.status(200).json(gameToAdd);
+        }
+    } catch (error) {
+        return res.status(500).json({ error: error.message });
+    }
+};
 
-module.exports = { getAll, getByID };
+module.exports = { getAll, getByID, postGame };
