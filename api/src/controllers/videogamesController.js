@@ -4,6 +4,7 @@ const axios = require('axios');
 require('dotenv').config();
 const { API_KEY } = process.env;
 const URL = 'https://api.rawg.io/api/games'
+const { VideoGame } = require('../db')
 
 const getAllGames = async () => {
 
@@ -33,7 +34,38 @@ const getAllGames = async () => {
     console.log(games.length);
     return games;
 
+};
+
+const getGameByID = async (id) => {
+
+    if (/^[0-9]+$/.test(id)) {
+        const response = await axios.get(`https://api.rawg.io/api/games/${id}?key=${API_KEY}`);
+        const gameDetail = {
+            id: response.data.id,
+            name: response.data.name,
+            platforms: response.data.platforms.map(platform => ({
+                name: platform.platform.name,
+            })),
+            released: response.data.released,
+            image: response.data.background_image,
+            rating: response.data.rating,
+        };
+        return gameDetail;
+
+    } 
+    
+    if (/^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/.test(id)) {
+        // Si el ID es un UUID, busca en la base de datos
+        const game = await VideoGame.findByPk(id);
+        if (!game) {
+            throw new Error('Game not found in the database.');
+        }
+        return game;
+    } else {
+        throw new Error('Invalid ID format.');
+    }
+
 }
 
 
-module.exports = { getAllGames }
+module.exports = { getAllGames, getGameByID }
