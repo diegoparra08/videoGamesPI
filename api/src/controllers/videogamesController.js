@@ -4,7 +4,7 @@ const axios = require('axios');
 require('dotenv').config();
 const { API_KEY } = process.env;
 const URL = 'https://api.rawg.io/api/games'
-const { VideoGame } = require('../db')
+const { Videogame } = require('../db')
 
 const getAllGames = async () => {
 
@@ -56,7 +56,7 @@ const getGameByID = async (id) => {
     
     if (/^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/.test(id)) {
         // Si el ID es un UUID, busca en la base de datos
-        const game = await VideoGame.findByPk(id);
+        const game = await Videogame.findByPk(id);
         if (!game) {
             throw new Error('Game not found in the database.');
         }
