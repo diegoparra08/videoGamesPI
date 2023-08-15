@@ -3,8 +3,10 @@
 const axios = require('axios');
 require('dotenv').config();
 const { API_KEY } = process.env;
-const URL = 'https://api.rawg.io/api/games'
+const { Op } = require('sequelize');
 const { Videogame } = require('../db')
+const URL = 'https://api.rawg.io/api/games'
+
 
 const getAllGames = async () => {
 
@@ -64,8 +66,34 @@ const getGameByID = async (id) => {
     } else {
         throw new Error('Invalid ID format.');
     }
+};
 
+const getGameByName = async(name) => {
+ const apiResponse = await axios.get(`${URL}?key=${API_KEY}&search=${name}`)
+
+ const apiGames = apiResponse.data.results;
+
+        const dbGames = await Videogame.findAll({
+            where: {
+                name: {
+                    [Op.iLike]: `%${name}%`, // Busca el nombre independientemente de mayúsculas o minúsculas
+                }
+            },
+            limit: 15
+        });
+
+        const combinedGames = [...apiGames, ...dbGames];
+        return combinedGames.map(game => ({
+            id: game.id,
+            name: game.name,
+            platforms: game.platforms.map(platform => ({
+                name: platform.platform.name,
+            })),
+            released: game.released,
+            image: game.background_image,
+            rating: game.rating,
+        }));
 }
 
 
-module.exports = { getAllGames, getGameByID }
+module.exports = { getAllGames, getGameByID, getGameByName }
