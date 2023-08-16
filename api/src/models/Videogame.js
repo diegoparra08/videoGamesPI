@@ -1,4 +1,5 @@
 const { DataTypes } = require('sequelize');
+const validator = require('validator');
 // Exportamos una funcion que define el modelo
 // Luego le injectamos la conexion a sequelize.
 module.exports = (sequelize) => {
@@ -24,6 +25,13 @@ module.exports = (sequelize) => {
     image: {
       type: DataTypes.TEXT,
       allowNull: true,
+      validate: {
+        isUrlValid(value) {
+          if (value && !validator.isURL(value)) {
+            throw new Error('It must be a valid URL')
+          }
+        }
+      }
     },
     released: {
       type: DataTypes.STRING,

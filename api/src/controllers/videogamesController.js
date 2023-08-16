@@ -83,7 +83,8 @@ const getGameByName = async (name) => {
     });
 
     const combinedGames = [...apiGames, ...dbGames];
-    return combinedGames.map(game => ({
+    const first15Games = combinedGames.slice(0,15) //limita la llamada a 15 juegos solamente
+    return first15Games.map(game => ({
         id: game.id,
         name: game.name,
         platforms: game.platforms.map(platform => ({
@@ -95,7 +96,7 @@ const getGameByName = async (name) => {
     }));
 };
 
-const postNewGame = async ({ name, description, platforms, released, image, rating, genreNames }) => {
+const postNewGame = async ({ name, description, platforms, released, image, rating }) => {
 
     const gameToAdd = await Videogame.create({
         
@@ -107,19 +108,19 @@ const postNewGame = async ({ name, description, platforms, released, image, rati
         rating,
     });
 
-    const genreInstances = await Promise.all(
-        genreNames.map(async (genreName) => {
-            const genre = await Genre.findOne({ where: 
-                { name: genreName } 
-            });
-            if (!genre) {
-                throw new Error(`Genre '${genreName}' not found.`);
-            }
-            return genre;
-        })
-    );
+    // const genreInstances = await Promise.all(
+    //     genreNames.map(async (genreName) => {
+    //         const genre = await Genre.findOne({ where: 
+    //             { name: genreName } 
+    //         });
+    //         if (!genre) {
+    //             throw new Error(`Genre '${genreName}' not found.`);
+    //         }
+    //         return genre;
+    //     })
+    // );
 
-    await gameToAdd.addGenres(genreInstances);
+    // await gameToAdd.addGenres(genreInstances);
 
     return gameToAdd;
 };

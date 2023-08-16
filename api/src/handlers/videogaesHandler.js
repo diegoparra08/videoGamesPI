@@ -42,14 +42,14 @@ const postGame = async (req, res) => {
     try {
         const newGame = req.body;
       
-        const { name, description, platforms, released, image, rating, genres } = newGame;
+        const { name, description, platforms, released, image, rating} = newGame;
        
-        if ( !name || !description || !platforms || !released || !image || !rating || !genres ) {
+        if ( !name || !description || !platforms || !released || !image || !rating ) {
             throw new Error('Missing game info!')
         } else {
-           const genreNames = genres.map(genre => genre.name);
-            
-            const gameToAdd = await postNewGame({ name, description, platforms, released, image, rating, genreNames})
+        //    const genreNames = genres.map(genre => genre.name);
+            // const genreNames = genres.name;
+            const gameToAdd = await postNewGame({ name, description, platforms, released, image, rating})
             return res.status(200).json(gameToAdd);
         }
     } catch (error) {
