@@ -4,7 +4,7 @@ const axios = require('axios');
 require('dotenv').config();
 const { API_KEY } = process.env;
 const { Op } = require('sequelize');
-const { Videogame } = require('../db')
+const { Videogame, Genre } = require('../db')
 const URL = 'https://api.rawg.io/api/games'
 
 
@@ -95,7 +95,7 @@ const getGameByName = async (name) => {
     }));
 };
 
-const postNewGame = async ({ name, description, platforms, released, image, rating }) => {
+const postNewGame = async ({ name, description, platforms, released, image, rating, genreNames }) => {
 
     const gameToAdd = await Videogame.create({
         
@@ -106,6 +106,21 @@ const postNewGame = async ({ name, description, platforms, released, image, rati
         image,
         rating,
     });
+
+    const genreInstances = await Promise.all(
+        genreNames.map(async (genreName) => {
+            const genre = await Genre.findOne({ where: 
+                { name: genreName } 
+            });
+            if (!genre) {
+                throw new Error(`Genre '${genreName}' not found.`);
+            }
+            return genre;
+        })
+    );
+
+    await gameToAdd.addGenres(genreInstances);
+
     return gameToAdd;
 };
 
