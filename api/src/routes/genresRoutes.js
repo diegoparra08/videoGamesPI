@@ -1,6 +1,6 @@
 const getGenre = require('../handlers/genresHandler');
 const routerGenres = require('express').Router();
 
-routerGenres.get('/', getGenre)
+routerGenres.get('/', getGenre);
 
 module.exports = routerGenres;
