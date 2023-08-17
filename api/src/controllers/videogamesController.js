@@ -40,11 +40,21 @@ const getAllGames = async () => {
         const results = response.data.results.map(game => mapGame(game));
         games.push(...results);
     });
-    console.log(games.length);
-    return games;
+
+    const dbGames = await Videogame.findAll({
+        include: [{ model: Genre, attributes: ['name'], through: { attributes: [] } }],
+    });
+
+    const combinedGames = [...games, ...dbGames];
+    console.log(combinedGames.length);
+    return combinedGames;
 };
 
 const getGameByID = async (id) => {
+
+    function removeHtmlTags(input) {
+        return input.replace(/<\/?[^>]+(>|$)/g, "");
+    }
 
     if (/^[0-9]+$/.test(id)) {
         const response = await axios.get(`https://api.rawg.io/api/games/${id}?key=${API_KEY}`);
@@ -57,7 +67,7 @@ const getGameByID = async (id) => {
             released: response.data.released,
             image: response.data.background_image,
             rating: response.data.rating,
-            description: response.data.description,
+            description: removeHtmlTags(response.data.description),
             genres: response.data.genres.map(genre => ({
                 name: genre.name
             }))
@@ -116,7 +126,7 @@ const postNewGame = async ({ name, description, platforms, released, image, rati
         rating,
         
     });
-    console.log('Game added:', gameToAdd.toJSON());
+   
     const selectedGenres = await Genre.findAll({
         where: {
           name: {
@@ -125,7 +135,7 @@ const postNewGame = async ({ name, description, platforms, released, image, rati
         },
       });
 
-      console.log('Selected genres:', selectedGenres.map(genre => genre.toJSON()));
+    //   console.log('Selected genres:', selectedGenres.map(genre => genre.toJSON()));
   
       await gameToAdd.addGenres(selectedGenres); //addGenres se habilita al hacer una relacion many to many
       console.log('Genres added to game.');
