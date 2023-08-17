@@ -8,6 +8,23 @@ const { Videogame, Genre } = require('../db')
 const URL = 'https://api.rawg.io/api/games'
 
 
+const mapGame = (game) => ({
+    id: game.id,
+    name: game.name,
+    platforms: game.platforms.map(platform => ({
+        name: platform.platform.name,
+    })),
+    released: game.released,
+    image: game.background_image,
+    rating: game.rating,
+    genres: game.genres.map(genre => ({
+        name: genre.name
+    }))
+});
+
+// Función de mapeo para una lista de juegos
+const mapGamesList = (games) => games.map(mapGame);
+
 const getAllGames = async () => {
 
     const promises = [];
@@ -20,25 +37,11 @@ const getAllGames = async () => {
     const responses = await Promise.all(promises);
 
     responses.forEach(response => {
-        const results = response.data.results.map(game => ({
-            id: game.id,
-            name: game.name,
-            platforms: game.platforms.map(platform => ({
-                name: platform.platform.name,
-            })),
-            released: game.released,
-            image: game.background_image,
-            rating: game.rating,
-            genres: game.genres.map(genre => ({
-                name: genre.name
-            }))
-        }));
-
+        const results = response.data.results.map(game => mapGame(game));
         games.push(...results);
     });
     console.log(games.length);
     return games;
-
 };
 
 const getGameByID = async (id) => {
@@ -65,11 +68,6 @@ const getGameByID = async (id) => {
 
     if (/^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/.test(id)) {
         // Si el ID es un UUID, busca en la base de datos
-        // const game = await Videogame.findByPk(id);
-        // if (!game) {
-        //     throw new Error('Game not found in the database.');
-        // }
-        // return game;
         const game = await Videogame.findOne({
             where: { id },
             include: [{ model: Genre, attributes: ["name"], through: { attributes: [] } }] //incluye el genre al buscar el juego
@@ -86,34 +84,23 @@ const getGameByID = async (id) => {
 const getGameByName = async (name) => {
     const apiResponse = await axios.get(`${URL}?key=${API_KEY}&search=${name}`)
 
-    const apiGames = apiResponse.data.results;
+    const apiGames = apiResponse.data.results
+    .slice(0, 15) // Limitar a las primeras 15 respuestas
+    .map(game => mapGame(game));
 
-    const dbGames = await Videogame.findAll({
-        where: {
-            name: {
-                [Op.iLike]: `%${name}%`,
-            }
-        },
-        include: [{ model: Genre, attributes: ['name'], through: { attributes: [] } }],
-        limit: 15
-    });
+const dbGames = await Videogame.findAll({
+    where: {
+        name: {
+            [Op.iLike]: `%${name}%`,
+        }
+    },
+    include: [{ model: Genre, attributes: ['name'], through: { attributes: [] } }],
+    limit: 15 // Limitar a las primeras 15 respuestas
+});
 
-    const combinedGames = [...apiGames, ...dbGames];
-    const first15Games = combinedGames.slice(0,15) //limita la llamada a 15 juegos solamente
-    return first15Games.map(game => ({
-        id: game.id,
-        name: game.name,
-        platforms: game.platforms.map(platform => ({
-            name: platform.platform.name,
-        })),
-        released: game.released,
-        image: game.background_image,
-        rating: game.rating,
-        genres: game.genres.map(genre => ({
-            name: genre.name
-        }))
-        
-    }));
+const combinedGames = [...apiGames, ...dbGames];
+
+return combinedGames;
 };
 
 
@@ -140,7 +127,7 @@ const postNewGame = async ({ name, description, platforms, released, image, rati
 
       console.log('Selected genres:', selectedGenres.map(genre => genre.toJSON()));
   
-      await gameToAdd.addGenres(selectedGenres); //Se crea al hacer una relacion many to many
+      await gameToAdd.addGenres(selectedGenres); //addGenres se habilita al hacer una relacion many to many
       console.log('Genres added to game.');
       const relationGame = await Videogame.findOne({
         where: {id: gameToAdd.id},

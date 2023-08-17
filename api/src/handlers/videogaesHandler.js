@@ -6,10 +6,10 @@ const getAll = async (req, res) => {
     try {
         if (name) {
             const gamesFound = await getGameByName(name);
-
             if (gamesFound.length === 0) {
                 return res.status(404).json({ message: `Not matches were found for ${name}` })
             } else {
+                console.log(gamesFound.length);
                 return res.status(201).json(gamesFound);
             }
         } else {
