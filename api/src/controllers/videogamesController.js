@@ -5,7 +5,6 @@ require('dotenv').config();
 const { API_KEY } = process.env;
 const { Op } = require('sequelize');
 const { Videogame, Genre } = require('../db')
-const { getGenresFromApi } = require('./genresController')
 const URL = 'https://api.rawg.io/api/games'
 
 
@@ -66,7 +65,15 @@ const getGameByID = async (id) => {
 
     if (/^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/.test(id)) {
         // Si el ID es un UUID, busca en la base de datos
-        const game = await Videogame.findByPk(id);
+        // const game = await Videogame.findByPk(id);
+        // if (!game) {
+        //     throw new Error('Game not found in the database.');
+        // }
+        // return game;
+        const game = await Videogame.findOne({
+            where: { id },
+            include: [{ model: Genre, attributes: ["name"], through: { attributes: [] } }] //incluye el genre al buscar el juego
+        });
         if (!game) {
             throw new Error('Game not found in the database.');
         }
@@ -109,49 +116,6 @@ const getGameByName = async (name) => {
     }));
 };
 
-// const getGameByName = async (name) => {
-//     const apiResponse = await axios.get(`${URL}?key=${API_KEY}&search=${name}`);
-//     const apiGames = apiResponse.data.results;
-
-   
-//     const dbGames = await Videogame.findAll({
-//         where: {
-//             name: {
-//                 [Op.iLike]: `%${name}%`,
-//             }
-//         },
-//         include: [
-//             { 
-//                 model: Genre, 
-//                 attributes: ['name'], 
-//                 through: { attributes: [] } 
-//             }
-//         ],
-//         limit: 15
-//     });
-
-//     const combinedGames = [...apiGames, ...dbGames];
-//     const first15Games = combinedGames.slice(0, 15);
-
-//     return first15Games.map(game => {
-//         const platforms = game.platforms.map(platform => ({ name: platform.platform.name }));
-//         const genres = game.genres
-//             .map(genre => ({ name: genre.name }))
-//             .sort((a, b) => a.name.localeCompare(b.name)); // Sort genres alphabetically
-
-//         return {
-//             id: game.id,
-//             name: game.name,
-//             platforms: platforms,
-//             released: game.released,
-//             image: game.background_image,
-//             rating: game.rating,
-//             genres: genres
-//         };
-//     });
-// };
-
-
 
 const postNewGame = async ({ name, description, platforms, released, image, rating, genres }) => {
     
@@ -163,6 +127,7 @@ const postNewGame = async ({ name, description, platforms, released, image, rati
         released,
         image,
         rating,
+        
     });
     console.log('Game added:', gameToAdd.toJSON());
     const selectedGenres = await Genre.findAll({
