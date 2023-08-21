@@ -6,6 +6,7 @@ import NavBar from '../../Components/NavBar/NavBar';
 import Cards from '../../Components/Cards/Cards';
 import GenrePanel from '../../Components/FilterPanels/GenrePanel';
 import OriginButton from '../../Components/FilterButtons/OriginButton';
+import OrderComponent from '../../Components/Order/Order';
 
 
 function Home() {
@@ -14,12 +15,12 @@ function Home() {
     const allGenres = useSelector((state) => state.genres);
     const [search, setSearch] = useState(""); //se setea el estado del input
 
-    function handleChange(event) { //
+    function handleChange(event) { //recibe lo que se pone en el input y se lo asigna al estado search
         event.preventDefault();
         setSearch(event.target.value)
     };
 
-    function handleSubmit(event) {
+    function handleSubmit(event) { //despacha la funcion de searchByname con el string que viene delestado search
         event.preventDefault();
 
         if (search === "") {
@@ -36,10 +37,14 @@ function Home() {
 
     return (
         <div>
-            <NavBar handleChange={handleChange} handleSubmit={handleSubmit} />
-            <GenrePanel allGenres={allGenres} />
+            <NavBar handleChange={handleChange} handleSubmit={handleSubmit} /> 
+            {/* recibe las funciones handle para enviarlas a la navbar y que se ejecute la busqueda */}
+            <OrderComponent />
             <OriginButton />
-            <Cards allGames={allGames} />
+            <GenrePanel allGenres={allGenres} />  
+            {/* envia la info de genres a genrePanel para que se rendericen todos los botones */}
+            <Cards allGames={allGames} /> 
+            {/* envia la informacion del estado global de allGames a Cards */}
         </div>
     );
 };

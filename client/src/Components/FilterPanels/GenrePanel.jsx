@@ -13,7 +13,6 @@ function GenrePanel({allGenres}){
 
         </div>
     )
-
 };
 
 export default GenrePanel;

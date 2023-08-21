@@ -4,10 +4,11 @@ export const LOAD_GENRES = 'LOAD_GENRES';
 export const FILTER_BY_GENRE = 'FILTER_BY_GENRE';
 export const FILTER_BY_ORIGIN = 'FILTER_BY_ORIGIN';
 export const SEARCH_BY_NAME = 'SEARCH_BY_NAME';
-export const ORDER = 'ORDER';
+export const ORDER_ALPHABETICALLY = 'ORDER_ALPHABETICALLY';
+export const ORDER_BY_RATING = 'ORDER_BY_RATING';
 export const RESET = 'RESET';
 export const POST = 'POST';
-export const GET_DETAIL = 'GETDETAIL';
+export const GET_DETAIL = 'GET_DETAIL';
 
 
 export function loadGames() {
@@ -87,15 +88,24 @@ export function filterByGenre(genreID) {
 };
 
 export function filterByOrigin(origin) {
-    console.log('origin payload',origin);
     return {
         type: FILTER_BY_ORIGIN,
         payload: origin,
     }
 };
 
-export function order() {
+export function orderAlhabetically(order) {
+    return {
+        type: ORDER_ALPHABETICALLY,
+        payload: order,
+    }
+};
 
+export function orderByRating(orderRating) {
+    return {
+        type: ORDER_BY_RATING,
+        payload: orderRating,
+    }
 };
 
 export function reset() {

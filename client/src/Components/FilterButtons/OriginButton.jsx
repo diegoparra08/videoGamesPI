@@ -4,24 +4,19 @@ import { filterByOrigin } from "../../Redux/actions";
 
 import { SingleButton } from "./GenreButton.styles";
 
-
-function OriginButton(){
+function OriginButton() {
 
     const dispatch = useDispatch();
-   
-    
 
-    function handleOriginClick(origin){
-        dispatch(filterByOrigin(origin))
-        console.log('dentro de button',origin);
+    function handleOriginClick(origin) {   //hace el despacho de la funcion filterByOrigin con el valor del origen
+        dispatch(filterByOrigin(origin)) //que viene del boton
     }
 
-    return(
+    return (
         <div>
-            {["Api", "Data Base"].map(origin => 
-            <SingleButton value={origin} onClick={() => handleOriginClick(origin)}>{origin}</SingleButton>)}
-
-        {/* {["Api", "Data Base"].map(origin => <SingleButton value={origin} onClick={handleGenreClick}>{origin}</SingleButton>)} */}
+            {["Api", "Data Base"].map(origin =>
+                <SingleButton value={origin} onClick={
+                    () => handleOriginClick(origin)}>{origin}</SingleButton>)}
         </div>
     )
 };
