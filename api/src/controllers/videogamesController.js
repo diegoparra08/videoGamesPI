@@ -53,7 +53,7 @@ const getAllGames = async () => {
 const getGameByID = async (id) => {
 
     function removeHtmlTags(input) {
-        return input.replace(/<\/?[^>]+(>|$)/g, "");
+        return input.replace(/<\/?[^>]+(>|$)/g, "");  //reemplaza todos los simbolos por un string vacio
     }
 
     if (/^[0-9]+$/.test(id)) {

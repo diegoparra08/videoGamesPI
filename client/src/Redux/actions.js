@@ -1,11 +1,11 @@
 import axios from 'axios';
-export const LOADGAMES = 'LOADGAMES'
+export const LOAD_GAMES = 'LOAD_GAMES'
 export const FILTER = 'FILTER';
-export const SEARCHBYNAME = 'SEARCHBYNAME';
+export const SEARCH_BY_NAME = 'SEARCH_BY_NAME';
 export const ORDER = 'ORDER';
 export const RESET = 'RESET';
 export const POST = 'POST';
-export const GETDETAIL = 'GETDETAIL';
+export const GET_DETAIL = 'GETDETAIL';
 
 
 export function loadGames() {
@@ -20,7 +20,7 @@ export function loadGames() {
                 origin: typeof game.id === 'number' ? 'api' : 'db',
             }));
             return dispatch({
-                type: LOADGAMES,
+                type: LOAD_GAMES,
                 payload: gamesWithOrigin,
             });
         } catch (error) {
@@ -37,13 +37,26 @@ export function searchByName(name) {
             const { data } = await axios.get(endpoint);
 
             return dispatch({
-                type: SEARCHBYNAME,
+                type: SEARCH_BY_NAME,
                 payload: data,
             });
         } catch (error) {
             return { error: error.message }
         };
     };
+};
+
+export function getDetail(id) {
+    const endpoint = `http://localhost:3001/videogames/${id}`
+
+    return async (dispatch) => {
+        const { data } = await axios.get(endpoint);
+
+        return dispatch({
+            type: GET_DETAIL,
+            payload: data,
+        })
+    }
 };
 
 export function filter(genre, origin) {
@@ -68,6 +81,3 @@ export function post() {
 
 };
 
-export function getDetail() {
-
-};
