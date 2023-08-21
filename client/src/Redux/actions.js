@@ -1,6 +1,7 @@
 import axios from 'axios';
-export const LOAD_GAMES = 'LOAD_GAMES'
-export const FILTER = 'FILTER';
+export const LOAD_GAMES = 'LOAD_GAMES';
+export const LOAD_GENRES = 'LOAD_GENRES';
+export const FILTER_BY_GENRE = 'FILTER_BY_GENRE';
 export const SEARCH_BY_NAME = 'SEARCH_BY_NAME';
 export const ORDER = 'ORDER';
 export const RESET = 'RESET';
@@ -9,11 +10,11 @@ export const GET_DETAIL = 'GETDETAIL';
 
 
 export function loadGames() {
-    const endpoint = 'http://localhost:3001/videogames';
+    const endpointGames = 'http://localhost:3001/videogames';
 
     return async (dispatch) => {
         try {
-            const { data } = await axios.get(endpoint);
+            const { data } = await axios.get(endpointGames);
 
             const gamesWithOrigin = data.map(game => ({
                 ...game, 
@@ -23,6 +24,7 @@ export function loadGames() {
                 type: LOAD_GAMES,
                 payload: gamesWithOrigin,
             });
+       
         } catch (error) {
             return { error: error.message }
         };
@@ -46,6 +48,23 @@ export function searchByName(name) {
     };
 };
 
+export function loadGenres(){
+    const endpoint = `http://localhost:3001/genres`;
+ 
+    return async (dispatch) => {
+        try {
+            const { data } = await axios.get(endpoint);
+
+            return dispatch({
+                type: LOAD_GENRES,
+                payload: data,
+            });
+        } catch (error) {
+            return { error: error.message }
+        };
+    };
+};
+
 export function getDetail(id) {
     const endpoint = `http://localhost:3001/videogames/${id}`
 
@@ -59,13 +78,11 @@ export function getDetail(id) {
     }
 };
 
-export function filter(genre, origin) {
+export function filterByGenre(genreID) {
+    console.log(genreID);
     return {
-        type: FILTER,
-        payload: {
-            genre: genre,
-            origin: origin, //se hace la logica en el reducer para asignarle el origen
-        }
+        type: FILTER_BY_GENRE,
+        payload: genreID,
     }
 };
 

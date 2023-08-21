@@ -2,6 +2,8 @@ import GameCard from '../GameCard/GameCard'
 
 function Cards({ allGames }) {
 
+    console.log('Hola', allGames);
+    
     const gameList = allGames;
 
     return (
