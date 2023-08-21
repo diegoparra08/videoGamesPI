@@ -1,4 +1,4 @@
-import GenreButton from "../GenreButton/GenreButton";
+import GenreButton from "../FilterButtons/GenreButton";
 
 function GenrePanel({allGenres}){
 

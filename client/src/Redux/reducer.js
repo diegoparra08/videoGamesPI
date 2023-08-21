@@ -1,5 +1,5 @@
 
-import { LOAD_GAMES, LOAD_GENRES, SEARCH_BY_NAME, GET_DETAIL, FILTER_BY_GENRE } from './actions'
+import { LOAD_GAMES, LOAD_GENRES, SEARCH_BY_NAME, GET_DETAIL, FILTER_BY_GENRE, FILTER_BY_ORIGIN } from './actions'
 
 
 const initialState = {
@@ -29,7 +29,6 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         allGames: action.payload,
-
       };
 
     case GET_DETAIL:
@@ -40,16 +39,20 @@ const rootReducer = (state = initialState, action) => {
 
     case FILTER_BY_GENRE:
       return {
-      //   ...state,
-      //   allGames: state.copyAllGames.filter(game =>
-      //     game.genres.includes(action.payload) 
-      //   )
-      ...state,
-    allGames: state.copyAllGames.filter(game =>
-      game.genres.some(genre => genre.id === action.payload)
-    )
-      }
-    
+        ...state,
+        allGames: state.copyAllGames.filter(game =>
+          game.genres.some(genre => genre.id === action.payload)
+        )
+      };
+
+      case FILTER_BY_ORIGIN:
+        console.log('reducer',action.payload);
+        console.log('estado', state.copyAllGames);
+        return {
+          ...state,
+          allGames: state.copyAllGames.filter(game => game.origin === action.payload)
+        }
+
     default:
       return state;
   }

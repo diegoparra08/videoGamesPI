@@ -2,6 +2,7 @@ import axios from 'axios';
 export const LOAD_GAMES = 'LOAD_GAMES';
 export const LOAD_GENRES = 'LOAD_GENRES';
 export const FILTER_BY_GENRE = 'FILTER_BY_GENRE';
+export const FILTER_BY_ORIGIN = 'FILTER_BY_ORIGIN';
 export const SEARCH_BY_NAME = 'SEARCH_BY_NAME';
 export const ORDER = 'ORDER';
 export const RESET = 'RESET';
@@ -18,7 +19,7 @@ export function loadGames() {
 
             const gamesWithOrigin = data.map(game => ({
                 ...game, 
-                origin: typeof game.id === 'number' ? 'api' : 'db',
+                origin: typeof game.id === 'number' ? 'Api' : 'Data Base',
             }));
             return dispatch({
                 type: LOAD_GAMES,
@@ -79,10 +80,17 @@ export function getDetail(id) {
 };
 
 export function filterByGenre(genreID) {
-    console.log(genreID);
     return {
         type: FILTER_BY_GENRE,
         payload: genreID,
+    }
+};
+
+export function filterByOrigin(origin) {
+    console.log('origin payload',origin);
+    return {
+        type: FILTER_BY_ORIGIN,
+        payload: origin,
     }
 };
 

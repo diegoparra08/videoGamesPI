@@ -4,7 +4,8 @@ import { loadGames, loadGenres, searchByName } from '../../Redux/actions';
 
 import NavBar from '../../Components/NavBar/NavBar';
 import Cards from '../../Components/Cards/Cards';
-import GenrePanel from '../../Components/GenrePanel/GenrePanel';
+import GenrePanel from '../../Components/FilterPanels/GenrePanel';
+import OriginButton from '../../Components/FilterButtons/OriginButton';
 
 
 function Home() {
@@ -35,8 +36,9 @@ function Home() {
 
     return (
         <div>
-            <NavBar handleChange={handleChange} handleSubmit={handleSubmit}/>
-            <GenrePanel allGenres={allGenres}/>
+            <NavBar handleChange={handleChange} handleSubmit={handleSubmit} />
+            <GenrePanel allGenres={allGenres} />
+            <OriginButton />
             <Cards allGames={allGames} />
         </div>
     );
