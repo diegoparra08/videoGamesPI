@@ -12,14 +12,14 @@ function GameCard({ game }) {
      }
 
     return (
-        <SingleCard>
+        <SingleCard onClick={navigateHandler}>
             <GenreList>
                 {genres.map(genre => (
                     <li key={genre.name}>{genre.name}</li>
                 ))}
             </GenreList>
-            <h2 onClick={navigateHandler}>{name}</h2>
-            <img src={image} alt={name} onClick={navigateHandler}/>
+            <h2>{name}</h2>
+            <img src={image} alt={name}/>
 
         </SingleCard>
     )

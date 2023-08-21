@@ -2,8 +2,6 @@ import { useParams } from "react-router-dom"; //permite recibir el
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getDetail } from '../../Redux/actions';
-import NavBar from "../../Components/NavBar/NavBar";
-
 
 function Detail() {
 
@@ -13,11 +11,10 @@ function Detail() {
 
     useEffect(() => { //useEffect controla el ciclo de vida del componente
         dispatch(getDetail(id)) //usa el dispatch para hacer el mount de todos los juegos
-    }, [dispatch]);
+    }, [dispatch, id]);
 
     return (
         <div>
-            <NavBar/>
 
             {`detail del juego ${id}`}
             <img src={detailedGame.image && detailedGame.image} alt={detailedGame.name} />
