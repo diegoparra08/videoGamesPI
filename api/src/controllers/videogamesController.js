@@ -18,7 +18,8 @@ const mapGame = (game) => ({
     image: game.background_image,
     rating: game.rating,
     genres: game.genres.map(genre => ({
-        name: genre.name
+        name: genre.name,
+        id: genre.id
     }))
 });
 
@@ -42,7 +43,7 @@ const getAllGames = async () => {
     });
 
     const dbGames = await Videogame.findAll({
-        include: [{ model: Genre, attributes: ['name'], through: { attributes: [] } }],
+        include: [{ model: Genre, attributes: ['name', 'id'], through: { attributes: [] } }],
     });
 
     const combinedGames = [...games, ...dbGames];
@@ -69,7 +70,8 @@ const getGameByID = async (id) => {
             rating: response.data.rating,
             description: removeHtmlTags(response.data.description),
             genres: response.data.genres.map(genre => ({
-                name: genre.name
+                name: genre.name,
+                id: genre.id
             }))
         };
         return gameDetail;
@@ -80,7 +82,7 @@ const getGameByID = async (id) => {
         // Si el ID es un UUID, busca en la base de datos
         const game = await Videogame.findOne({
             where: { id },
-            include: [{ model: Genre, attributes: ["name"], through: { attributes: [] } }] //incluye el genre al buscar el juego
+            include: [{ model: Genre, attributes: ["name", "id"], through: { attributes: [] } }] //incluye el genre al buscar el juego
         });
         if (!game) {
             throw new Error('Game not found in the database.');
@@ -104,7 +106,7 @@ const dbGames = await Videogame.findAll({
             [Op.iLike]: `%${name}%`,
         }
     },
-    include: [{ model: Genre, attributes: ['name'], through: { attributes: [] } }],
+    include: [{ model: Genre, attributes: ['name', 'id'], through: { attributes: [] } }],
     limit: 15 // Limitar a las primeras 15 respuestas
 });
 
@@ -141,7 +143,7 @@ const postNewGame = async ({ name, description, platforms, released, image, rati
       console.log('Genres added to game.');
       const relationGame = await Videogame.findOne({
         where: {id: gameToAdd.id},
-        include:[{model :Genre, attributes: ["name"], through: {attributes: []}}]
+        include:[{model :Genre, attributes: ["name", "id"], through: {attributes: []}}]
     })
 
     return relationGame;
