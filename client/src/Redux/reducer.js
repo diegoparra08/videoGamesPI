@@ -1,6 +1,6 @@
 import {
   LOAD_GAMES, LOAD_GENRES, SEARCH_BY_NAME, GET_DETAIL,
-  FILTER_BY_GENRE, FILTER_BY_ORIGIN, ORDER_ALPHABETICALLY, ORDER_BY_RATING
+  FILTER_BY_GENRE, FILTER_BY_ORIGIN, ORDER_ALPHABETICALLY, ORDER_BY_RATING, RESET
 } from './actions'
 
 const initialState = {
@@ -86,6 +86,12 @@ const rootReducer = (state = initialState, action) => {
         allGames: sortedGamesRating,
         activeOrder: 'rating',
       };
+
+      case RESET:
+        return {
+          ...state,
+          allGames: state.copyAllGames, 
+        }
 
     default:
       return state;

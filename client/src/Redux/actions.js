@@ -109,7 +109,9 @@ export function orderByRating(orderRating) {
 };
 
 export function reset() {
-
+    return {
+        type: RESET,
+    }
 };
 
 export function post() {

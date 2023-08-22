@@ -7,6 +7,7 @@ import Cards from '../../Components/Cards/Cards';
 import GenrePanel from '../../Components/FilterPanels/GenrePanel';
 import OriginButton from '../../Components/FilterButtons/OriginButton';
 import OrderComponent from '../../Components/Order/Order';
+import ResetButton from '../../Components/FilterButtons/ResetButton';
 
 
 function Home() {
@@ -41,6 +42,7 @@ function Home() {
             {/* recibe las funciones handle para enviarlas a la navbar y que se ejecute la busqueda */}
             <OrderComponent />
             <OriginButton />
+            <ResetButton/>
             <GenrePanel allGenres={allGenres} />  
             {/* envia la info de genres a genrePanel para que se rendericen todos los botones */}
             <Cards allGames={allGames} /> 
