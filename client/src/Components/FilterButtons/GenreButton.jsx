@@ -7,9 +7,9 @@ function GenreButton({genre}){
 
     const dispatch = useDispatch();
     const { name, id } = genre;
-    console.log(id);
 
     function handleGenreClick(){
+        console.log('Dispatching filterByGenre:', id);
         dispatch(filterByGenre(id))
     }
 
