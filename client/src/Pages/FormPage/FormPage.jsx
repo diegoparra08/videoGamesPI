@@ -1,8 +1,10 @@
+import CreateGame from "../../Components/Form/Form";
+
 
 function Form(){
     return (
         <div className="from">
-            Form!!
+           <CreateGame/>
         </div>
     )
 };
