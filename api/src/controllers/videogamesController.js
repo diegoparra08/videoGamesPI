@@ -117,7 +117,9 @@ return combinedGames;
 
 
 const postNewGame = async ({ name, description, platforms, released, image, rating, genres }) => {
-    
+   
+    const parsedRating = parseFloat(rating);
+
     const gameToAdd = await Videogame.create({
         
         name,
@@ -125,7 +127,7 @@ const postNewGame = async ({ name, description, platforms, released, image, rati
         platforms,
         released,
         image,
-        rating,
+        rating: parsedRating,
         
     });
    
