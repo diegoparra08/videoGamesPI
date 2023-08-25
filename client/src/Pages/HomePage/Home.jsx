@@ -8,6 +8,7 @@ import GenrePanel from '../../Components/FilterPanels/GenrePanel';
 import OriginButton from '../../Components/FilterButtons/OriginButton';
 import OrderComponent from '../../Components/Order/Order';
 import ResetButton from '../../Components/FilterButtons/ResetButton';
+import Pagination from '../../Components/Pagination/Pagination';
 
 
 function Home() {
@@ -15,7 +16,15 @@ function Home() {
     const allGames = useSelector((state) => state.allGames); //Esto permite suscribir este componente al estado de allGames
     const allGenres = useSelector((state) => state.genres);
     const [search, setSearch] = useState(""); //se setea el estado del input
+    const [page, setPage] = useState(1);
+   
+    const cardsByPage = 15;
+    const maximum = allGames.length / cardsByPage;
+    const start = (page - 1) * cardsByPage;
+    const end = (page - 1) * cardsByPage + cardsByPage;
 
+    const allGamesWithPagination = allGames.slice(start, end);
+    
     function handleChange(event) { //recibe lo que se pone en el input y se lo asigna al estado search
         event.preventDefault();
         setSearch(event.target.value)
@@ -40,12 +49,13 @@ function Home() {
         <div>
             <NavBar handleChange={handleChange} handleSubmit={handleSubmit} /> 
             {/* recibe las funciones handle para enviarlas a la navbar y que se ejecute la busqueda */}
+            <Pagination setPage={setPage} maximum={Math.ceil(maximum)}/>
             <OrderComponent />
             <OriginButton />
             <ResetButton/>
             <GenrePanel allGenres={allGenres} />  
             {/* envia la info de genres a genrePanel para que se rendericen todos los botones */}
-            <Cards allGames={allGames} /> 
+            <Cards allGames={allGamesWithPagination} /> 
             {/* envia la informacion del estado global de allGames a Cards */}
         </div>
     );
