@@ -5,6 +5,8 @@ function Validate(game){
 
     if (game.name.length < 2 || game.name.length > 20) {
           errors.name = 'Name must have between 2 and 20 characters including spaces';
+    } else if (!/^[a-zA-Z0-9\s]*$/.test(game.name)) {
+        errors.name = `Name can´t contain special chatacters ('*','+','!', etc)`;
     } else {
         errors.name = '';
     }
