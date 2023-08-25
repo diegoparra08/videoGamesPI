@@ -1,7 +1,9 @@
 import { useParams } from "react-router-dom"; //permite recibir el 
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getDetail } from '../../Redux/actions';
+import { getDetail, clearDetail } from '../../Redux/actions';
+
+import { DetailImg } from "./Detail.styles";
 
 function Detail() {
 
@@ -10,14 +12,14 @@ function Detail() {
     const detailedGame = useSelector((state) => state.gameDetail)
 
     useEffect(() => { //useEffect controla el ciclo de vida del componente
-        dispatch(getDetail(id)) //usa el dispatch para hacer el mount de todos los juegos
-    }, [dispatch, id]);
+        dispatch(getDetail(id))//usa el dispatch para hacer el mount de todos los juegos
+        return () => dispatch(clearDetail())
+    }, [id, dispatch]);
 
     return (
         <div>
-
-            {`detail del juego ${id}`}
-            <img src={detailedGame.image && detailedGame.image} alt={detailedGame.name} />
+            <h2>Here is more on this Game...</h2>
+            <DetailImg src={detailedGame.image && detailedGame.image} alt={detailedGame.name} />
             <h2>{detailedGame.name}</h2>
             <h4>Game ID: {detailedGame.id}</h4>
             <ul>
