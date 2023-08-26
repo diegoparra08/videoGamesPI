@@ -38,7 +38,7 @@ function Validate(game){
         errors.rating = '';
     }
     if(game.genres.length === 0) {
-        errors.genres= "Atleast on genre must be provided";
+        errors.genres = "Atleast on genre must be provided";
     }
     if(!errors.name && !errors.description && !errors.platforms && 
     !errors.released && !errors.image && !errors.rating && !errors.genres){

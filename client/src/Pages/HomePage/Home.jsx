@@ -10,6 +10,8 @@ import OrderComponent from '../../Components/Order/Order';
 import ResetButton from '../../Components/FilterButtons/ResetButton';
 import Pagination from '../../Components/Pagination/Pagination';
 
+import { LoadingContainer, LoadingText , LoadingBar, LoadingBarFill } from './Home.styles';
+
 
 function Home() {
     const dispatch = useDispatch(); //Permite hacer el dispatch de las peticiones desde acá
@@ -24,6 +26,8 @@ function Home() {
     const end = (page - 1) * cardsByPage + cardsByPage;
 
     const allGamesWithPagination = allGames.slice(start, end);
+
+    const isLoading = allGames.length === 0;
     
     function handleChange(event) { //recibe lo que se pone en el input y se lo asigna al estado search
         event.preventDefault();
@@ -48,8 +52,13 @@ function Home() {
     return (
         <div>
             <NavBar handleChange={handleChange} handleSubmit={handleSubmit} /> 
-            {/* recibe las funciones handle para enviarlas a la navbar y que se ejecute la busqueda */}
-            <Pagination setPage={setPage} maximum={Math.ceil(maximum)}/>
+         {isLoading ? <LoadingContainer>
+      <LoadingText>Loading</LoadingText>
+      <LoadingBar>
+        <LoadingBarFill />
+      </LoadingBar>
+    </LoadingContainer> : <div>
+         <Pagination page={page} setPage={setPage} maximum={Math.ceil(maximum)}/>
             <OrderComponent />
             <OriginButton />
             <ResetButton/>
@@ -57,6 +66,8 @@ function Home() {
             {/* envia la info de genres a genrePanel para que se rendericen todos los botones */}
             <Cards allGames={allGamesWithPagination} /> 
             {/* envia la informacion del estado global de allGames a Cards */}
+            
+            </div>}
         </div>
     );
 };

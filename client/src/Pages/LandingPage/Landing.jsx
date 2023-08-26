@@ -1,13 +1,14 @@
+import StartButton from '../../Components/HomeButton/StartButton';
 
+import { Landing, WelcomeTitle } from './Landing.styles';
 
 function LandingPage() {
- 
-    return(
-    
-    <div>
-        <h1>Landing!!</h1>
-    </div>
-    )
+  return (
+    <Landing>
+      <WelcomeTitle>Welcome To The VideoGames Hub!</WelcomeTitle>
+      <StartButton/>
+    </Landing>
+  );
 }
 
 export default LandingPage;

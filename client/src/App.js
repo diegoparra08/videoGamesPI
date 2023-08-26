@@ -24,9 +24,8 @@ const location = useLocation();
 
   return (
     <div className="App">
-      <h1>Henry Videogames!!!!</h1>
 
-      {location.pathname !== '/home' && <HomeButton/>}
+      {(location.pathname !== '/home' && location.pathname !== '/') ? <HomeButton/> : null }
 
       <Routes>
         <Route path='/' element={< LandingPage />} />
