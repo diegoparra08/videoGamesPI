@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 
-import { SingleCard, GenreList } from './GameCard.style';
+import { SingleCard, GenreList, CardImg } from './GameCard.style';
 
 function GameCard({ game }) {
 
@@ -19,7 +19,7 @@ function GameCard({ game }) {
                 ))}
             </GenreList>
             <h2>{name}</h2>
-            <img src={image} alt={name}/>
+            <CardImg src={image} alt={name}/>
 
         </SingleCard>
     )

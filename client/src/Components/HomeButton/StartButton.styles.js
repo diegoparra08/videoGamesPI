@@ -4,15 +4,14 @@ import styled from 'styled-components';
 
 const tingling = keyframes`
   0% {
-    background-color: #03a9; /* Color inicial */
+    background-color: #03a9;
   }
   50% {
     background-color: #ffffff; 
    
-    /* Color de fondo de destello */
   }
   100% {
-    background-color: #03a9; /* Color inicial */
+    background-color: #03a9; 
   }
 `
 
@@ -23,5 +22,12 @@ background: #03a9;
 color: #39ff14;
 padding: 10px 20px; 
 font-size: 18px;
+@media (max-width: 400px) {
+   font-size: 15px;
+  }
+
+  @media (max-width: 800px) {
+    font-size: 12px;
+  }
 
 `

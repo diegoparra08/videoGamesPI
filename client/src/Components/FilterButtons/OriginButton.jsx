@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 
 import { filterByOrigin } from "../../Redux/actions";
 
-import { SingleButton } from "./GenreButton.styles";
+import { SingleButtonOrigin, OriginButtonContainerDiv } from "./OriginButton.styles";
 
 function OriginButton() {
 
@@ -14,10 +14,15 @@ function OriginButton() {
 
     return (
         <div>
-            {["Api", "Data Base"].map(origin =>
-                <SingleButton value={origin} onClick={
-                    () => handleOriginClick(origin)}>{origin}</SingleButton>)}
+            <h4>By Origin</h4>
+            <OriginButtonContainerDiv>
+                {["Api", "Data Base"].map(origin =>
+                    <SingleButtonOrigin value={origin} onClick={
+                        () => handleOriginClick(origin)}>{origin}</SingleButtonOrigin>)}
+            </OriginButtonContainerDiv>
+
         </div>
+
     )
 };
 

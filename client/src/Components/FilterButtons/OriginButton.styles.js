@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const SingleButton = styled.button`
+export const SingleButtonOrigin = styled.button`
 display: flex;
 align-items: center;
 justify-content: center; 
@@ -18,3 +18,8 @@ white-space: nowrap;
   text-overflow: ellipsis;
 `
 
+export const OriginButtonContainerDiv = styled.div`
+display: flex;
+
+
+`

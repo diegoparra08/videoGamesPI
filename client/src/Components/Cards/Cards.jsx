@@ -1,4 +1,5 @@
 import GameCard from '../GameCard/GameCard'
+import { CardsContainerDiv } from './Cards.styles';
 
 function Cards({ allGames }) {
 
@@ -7,13 +8,13 @@ function Cards({ allGames }) {
     const gameList = allGames;
 
     return (
-        <div>
+        <CardsContainerDiv>
 
             {gameList?.map((game) => (
                 <GameCard key={game.id} game={game} />
             ))}
 
-        </div>
+        </CardsContainerDiv>
     )
 };
 

@@ -2,6 +2,8 @@ import { useDispatch } from "react-redux";
 
 import { reset } from "../../Redux/actions";
 
+import { SingleButton } from "./GenreButton.styles";
+
 function ResetButton(){
 
     const dispatch = useDispatch();
@@ -11,9 +13,9 @@ function ResetButton(){
     };
 
     return(
-        <button onClick={handleResetClcik}>
+        <SingleButton onClick={handleResetClcik}>
             Reset Filters
-        </button>
+        </SingleButton>
     )
 
 };

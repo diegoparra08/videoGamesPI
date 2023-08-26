@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 
 function NavBar({ handleSubmit, handleChange}) {
 
+    
+
     const navigate = useNavigate();
 
     function handleFormButon() {

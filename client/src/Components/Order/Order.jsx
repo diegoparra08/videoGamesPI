@@ -2,6 +2,8 @@ import { useDispatch } from "react-redux";
 
 import { orderAlhabetically, orderByRating } from "../../Redux/actions";
 
+import { OrderSelect, OrderContainerDiv } from './Order.styles'
+
 function OrderComponent() {
 
     const dispatch = useDispatch();
@@ -15,22 +17,27 @@ function OrderComponent() {
     };
 
     return (
-
         <div>
             <h4>Order</h4>
-            <select onChange={handleAplhabetically}>
+
+            <OrderContainerDiv>
+            
+            <OrderSelect onChange={handleAplhabetically}>
                 <option disabled selected value="">Alphabetically</option>
                 <option value="A-Z">A-Z</option>
                 <option value="Z-A">Z-A</option>
-            </select>
+            </OrderSelect>
 
-            <select onChange={handleRating}>
+            <OrderSelect onChange={handleRating}>
                 <option disabled selected value="">Rating</option>
                 <option value="Ascending">Ascending</option>
                 <option value="Descending">Descending</option>
-            </select>
+            </OrderSelect>
+
+        </OrderContainerDiv>
 
         </div>
+        
 
 
     )

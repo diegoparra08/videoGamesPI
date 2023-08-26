@@ -1,3 +1,5 @@
+import { SingleButtonPag, ButtonNextPrev, PagContainerDiv } from "./Pagination.styles";
+
 
 function Pagination({ page, setPage, maximum }){
 //  const pageNumbers = [];
@@ -17,14 +19,14 @@ function Pagination({ page, setPage, maximum }){
  }
 
  return (
-    <div>
-        <button onClick={handlePrev}>Prev</button>
+    <PagContainerDiv>
+        <ButtonNextPrev onClick={handlePrev}>Prev</ButtonNextPrev>
         {pageNumbers.map((pageNumber) => (
-            <button key={pageNumber} onClick={()=> setPage(pageNumber)}>{pageNumber}</button>
+            <SingleButtonPag key={pageNumber} onClick={()=> setPage(pageNumber)}>{pageNumber}</SingleButtonPag>
         ))}
-        <button onClick={handleNext}>Next</button>
+        <ButtonNextPrev onClick={handleNext}>Next</ButtonNextPrev>
 
-    </div>
+    </PagContainerDiv>
  )
 };
 

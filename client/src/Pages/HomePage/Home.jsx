@@ -10,7 +10,7 @@ import OrderComponent from '../../Components/Order/Order';
 import ResetButton from '../../Components/FilterButtons/ResetButton';
 import Pagination from '../../Components/Pagination/Pagination';
 
-import { LoadingContainer, LoadingText , LoadingBar, LoadingBarFill } from './Home.styles';
+import { CardContainer, ContentContainer, SidePanel, LoadingContainer, LoadingText, HomeContainerDiv, LoadingBar, LoadingBarFill } from './Home.styles';
 
 
 function Home() {
@@ -19,7 +19,7 @@ function Home() {
     const allGenres = useSelector((state) => state.genres);
     const [search, setSearch] = useState(""); //se setea el estado del input
     const [page, setPage] = useState(1);
-   
+
     const cardsByPage = 15;
     const maximum = allGames.length / cardsByPage;
     const start = (page - 1) * cardsByPage;
@@ -28,7 +28,7 @@ function Home() {
     const allGamesWithPagination = allGames.slice(start, end);
 
     const isLoading = allGames.length === 0;
-    
+
     function handleChange(event) { //recibe lo que se pone en el input y se lo asigna al estado search
         event.preventDefault();
         setSearch(event.target.value)
@@ -51,23 +51,44 @@ function Home() {
 
     return (
         <div>
-            <NavBar handleChange={handleChange} handleSubmit={handleSubmit} /> 
-         {isLoading ? <LoadingContainer>
-      <LoadingText>Loading</LoadingText>
-      <LoadingBar>
-        <LoadingBarFill />
-      </LoadingBar>
-    </LoadingContainer> : <div>
-         <Pagination page={page} setPage={setPage} maximum={Math.ceil(maximum)}/>
-            <OrderComponent />
-            <OriginButton />
-            <ResetButton/>
-            <GenrePanel allGenres={allGenres} />  
-            {/* envia la info de genres a genrePanel para que se rendericen todos los botones */}
-            <Cards allGames={allGamesWithPagination} /> 
-            {/* envia la informacion del estado global de allGames a Cards */}
-            
-            </div>}
+            <NavBar handleChange={handleChange} handleSubmit={handleSubmit} />
+
+            {isLoading ? <LoadingContainer>
+                <LoadingText>Loading</LoadingText>
+
+                <LoadingBar>
+                    <LoadingBarFill />
+                </LoadingBar>
+            </LoadingContainer> : <HomeContainerDiv>
+
+                <ContentContainer>
+
+                    <Pagination page={page} setPage={setPage} maximum={Math.ceil(maximum)} />
+                    <OrderComponent />
+                    <ResetButton />
+
+                </ContentContainer>
+
+                <SidePanel>
+
+                    <OriginButton />
+                    <div>
+                        <h4>By Genre</h4>
+                        <GenrePanel allGenres={allGenres} />
+                    </div>
+
+                </SidePanel>
+
+                <CardContainer>
+
+                    {/* envia la info de genres a genrePanel para que se rendericen todos los botones */}
+                    <Cards allGames={allGamesWithPagination} />
+                    {/* envia la informacion del estado global de allGames a Cards */}
+
+                </CardContainer>
+
+
+            </HomeContainerDiv>}
         </div>
     );
 };

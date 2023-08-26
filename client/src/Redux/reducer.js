@@ -6,6 +6,7 @@ import {
 const initialState = {
   allGames: [],
   copyAllGames: [],
+  backUpAllGames: [],
   gameDetail: {},
   genres: [],
   filters: [],
@@ -19,6 +20,7 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         allGames: action.payload,
         copyAllGames: action.payload,
+        backUpAllGames: action.payload,
       };
 
     case LOAD_GENRES:
@@ -73,6 +75,7 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         allGames: sortedGamesAlpha,
+        copyAllGames: sortedGamesAlpha,
         activeOrder: 'alphabetical',
       };
 
@@ -89,13 +92,15 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         allGames: sortedGamesRating,
+        copyAllGames: sortedGamesRating,
         activeOrder: 'rating',
       };
 
       case RESET:
         return {
           ...state,
-          allGames: state.copyAllGames, 
+          allGames: state.backUpAllGames, 
+          copyAllGames: state.backUpAllGames,
         };
 
         case POST_NEW_GAME:

@@ -11,18 +11,29 @@ export const loadingAnimation = keyframes`
 
 export const LoadingContainer = styled.div`
   display: flex;
+  flex-direction: column;
   align-items: center;
+  justify-content: center; /* Agrega esta línea para centrar horizontalmente */
+  height: 100vh;
+
+background-color: #333333;
+border-radius: 5px; 
+box-shadow: 0px 0px 10px rgba(51, 51, 51, 0.7); 
+background: linear-gradient(to bottom, #333333, #2e2e2e);
+  
 `;
 
 export const LoadingText = styled.p`
   margin-right: 10px;
+  font-family: 'Bangers';
+  font-size: 48px;
+  color: #01c4e7;
+  filter: brightness(1.75);
 `;
 
 export const LoadingBar = styled.div`
-  width: 100px;
-  height: 4px;
-  /* background-color: #ccc;
-  filter: brightness(1.75); */
+  width: 150px;
+  height: 10px;
   background: linear-gradient(45deg, #f06, #fc6);
   border: 1px solid #f06;
   box-shadow: 0 0 10px rgba(255, 102, 0, 0.5);
@@ -38,4 +49,31 @@ export const LoadingBarFill = styled.div`
   background-color: #007bff;
   position: absolute;
   animation: ${loadingAnimation} 1s infinite;
+`;
+
+export const HomeContainerDiv = styled.div`
+background-color: #333333;
+box-shadow: 0px 0px 10px rgba(51, 51, 51, 0.7); 
+background: linear-gradient(to bottom, #333333, #2e2e2e);
+
+`
+
+export const SidePanel = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 20px;
+`;
+
+export const ContentContainer = styled.div`
+display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; 
+  padding: 20px;
+`;
+
+export const CardContainer = styled.div`
+
+
 `;
