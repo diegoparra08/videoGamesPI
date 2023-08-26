@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+
+
 export const SingleButtonPag = styled.button`
 display: flex;
 align-items: center;
@@ -17,6 +19,17 @@ font-family: Bangers;
 white-space: nowrap; 
   overflow: hidden; 
   text-overflow: ellipsis;
+
+  &:hover {
+    transform: scale(1.05);
+}
+
+  ${props =>
+    props.isActive &&
+    `
+    background-color: #4a09c1;
+    color: #01c4e7;
+  `}
 `
 export const ButtonNextPrev = styled.button`
 display: flex;
@@ -35,6 +48,10 @@ font-family: Bangers;
 white-space: nowrap; 
   overflow: hidden; 
   text-overflow: ellipsis;
+
+  &:hover {
+    transform: scale(1.05);
+}
 `
 
 export const PagContainerDiv = styled.div`

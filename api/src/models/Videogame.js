@@ -40,6 +40,10 @@ module.exports = (sequelize) => {
     rating: {
       type: DataTypes.DECIMAL(4, 2),
       allowNull: true,
+      validate: {
+        min:0.01,
+        max: 5.00
+      }
     }
   },
     { timestamps: false });

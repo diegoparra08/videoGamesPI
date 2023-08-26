@@ -1,5 +1,5 @@
 import GameCard from '../GameCard/GameCard'
-import { CardsContainerDiv } from './Cards.styles';
+import { CardsContainerDiv, NoResultsBanerP, NoResultContainer } from './Cards.styles';
 
 function Cards({ allGames }) {
 
@@ -10,9 +10,19 @@ function Cards({ allGames }) {
     return (
         <CardsContainerDiv>
 
-            {gameList?.map((game) => (
+            {/* {gameList?.map((game) => (
                 <GameCard key={game.id} game={game} />
-            ))}
+            ))} */}
+
+{gameList.length > 0 ? (
+                gameList.map((game) => (
+                    <GameCard key={game.id} game={game} />
+                ))
+            ) : (
+                <NoResultContainer>
+                <NoResultsBanerP>No results for that! Sorry, try a different search.</NoResultsBanerP>
+                </NoResultContainer>
+            )}
 
         </CardsContainerDiv>
     )

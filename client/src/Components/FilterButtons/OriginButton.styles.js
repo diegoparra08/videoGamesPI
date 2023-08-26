@@ -16,10 +16,27 @@ font-family: Bangers;
 white-space: nowrap; 
   overflow: hidden; 
   text-overflow: ellipsis;
+
+&:hover {
+    transform: scale(1.05);
+}
+
+${props =>
+    props.isActive &&
+    `
+    background-color: #4a09c1;
+    color: #01c4e7;
+  `}
 `
 
 export const OriginButtonContainerDiv = styled.div`
 display: flex;
+margin-right: 30px;
+`
 
-
+export const ByOriginBannerH4 = styled.h4`
+font-family: Bangers;
+margin-top: 10px;
+margin-bottom: 10px;
+margin-right:35px; 
 `

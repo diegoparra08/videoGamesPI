@@ -61,19 +61,28 @@ background: linear-gradient(to bottom, #333333, #2e2e2e);
 export const SidePanel = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  padding: 20px;
+  align-items: center;
+  justify-content: center; 
+  padding: 10px;
+  margin-left:45px;
+
 `;
 
 export const ContentContainer = styled.div`
 display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center; 
-  padding: 20px;
+flex-direction: column;
+align-items: center;
+justify-content: center; 
+padding: 5px;
 `;
 
 export const CardContainer = styled.div`
-
-
+margin-left:70px;
 `;
+export const ByGenreBannerH4 = styled.h4`
+font-family: Bangers;
+margin-top: 20px;
+margin-bottom: 10px;
+margin-right: 35px;
+
+`

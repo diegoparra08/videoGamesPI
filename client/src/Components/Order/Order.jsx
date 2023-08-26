@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 
 import { orderAlhabetically, orderByRating } from "../../Redux/actions";
 
-import { OrderSelect, OrderContainerDiv } from './Order.styles'
+import { OrderSelect, OrderContainerDiv, OrderBannerH4 } from './Order.styles'
 
 function OrderComponent() {
 
@@ -18,7 +18,7 @@ function OrderComponent() {
 
     return (
         <div>
-            <h4>Order</h4>
+            <OrderBannerH4>Order</OrderBannerH4>
 
             <OrderContainerDiv>
             

@@ -8,11 +8,15 @@ border: 2px solid #01c4e7;
 border-radius: 10px;
 padding: 1px;
 margin: 20px;
-/* margin-top: 50px; */
+
 background-color: #01c4e7;
 box-shadow: -3px 6px 8px rgba(0, 0, 0, .9);
 color: #4a09c1;
 font-family: 'Bangers';
+
+&:hover {
+    transform: scale(1.10);
+}
 `
 
 export const GenreList = styled.ul`
