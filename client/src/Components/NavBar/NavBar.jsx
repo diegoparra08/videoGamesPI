@@ -1,36 +1,42 @@
 import { useNavigate } from "react-router-dom";
 
+import { NavBarContainer, LandingButton, ButtonsDiv, SearchButton, SearchInput, SearchForm } from './NavBar.styles';
 
-function NavBar({ handleSubmit, handleChange}) {
+function NavBar({ handleSubmit, handleChange }) {
 
-    
+
 
     const navigate = useNavigate();
 
     function handleFormButon() {
-     navigate('/create')
-     }; 
+        navigate('/create')
+    };
 
-     function handleAboutButton(){
+    function handleAboutButton() {
         navigate('/about')
-     };
+    };
 
-     function handleLandingButton(){
+    function handleLandingButton() {
         navigate('/')
-     }
+    }
 
     return (
-        <nav>
-            <form onSubmit={(event) => handleSubmit(event)}>  
-                <input type="search" placeholder="Type in the name" onChange={(event) => handleChange(event)} />
-                <button type="submit">Search</button>
-            </form>
+        <NavBarContainer>
+            <SearchForm onSubmit={(event) => handleSubmit(event)}>
+                <SearchInput type="search" placeholder="Type in the name" onChange={(event) => handleChange(event)} />
+                <SearchButton type="submit">Search</SearchButton>
+            </SearchForm>
+            <ButtonsDiv>
 
-            <button onClick={handleFormButon}>Create new Game</button>
-            <button onClick={handleAboutButton}>About</button>
-            <button onClick={handleLandingButton}>Go to landing Page</button>
+                <LandingButton onClick={handleLandingButton}>Go to landing Page</LandingButton>
+                <LandingButton onClick={handleFormButon}>Create new Game</LandingButton>
+                <LandingButton onClick={handleAboutButton}>About</LandingButton>
 
-        </nav>
+            </ButtonsDiv>
+
+
+
+        </NavBarContainer>
     );
 }
 

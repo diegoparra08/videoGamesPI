@@ -1,9 +1,11 @@
+import { AboutContainerDiv } from './About.styles'
+
 
 function About(){
     return (
-        <div className="about">
+        <AboutContainerDiv className="about">
             about!
-        </div>
+        </AboutContainerDiv>
         )
 };
 

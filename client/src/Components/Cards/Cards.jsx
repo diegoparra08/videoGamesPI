@@ -10,17 +10,13 @@ function Cards({ allGames }) {
     return (
         <CardsContainerDiv>
 
-            {/* {gameList?.map((game) => (
-                <GameCard key={game.id} game={game} />
-            ))} */}
-
 {gameList.length > 0 ? (
                 gameList.map((game) => (
                     <GameCard key={game.id} game={game} />
                 ))
             ) : (
                 <NoResultContainer>
-                <NoResultsBanerP>No results for that! Sorry, try a different search.</NoResultsBanerP>
+                <NoResultsBanerP>No results Sorry! Try a different search.</NoResultsBanerP>
                 </NoResultContainer>
             )}
 

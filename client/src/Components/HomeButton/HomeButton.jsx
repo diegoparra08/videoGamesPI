@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
-import { Button, ButtonPic } from "./HomeButton.Styles";
-import homeImg from '../../Images/HomeButton.jpg'
+import { Button, ButtonPic, HomeButtonDiv } from "./HomeButton.Styles";
+import homeImg from '../../Images/home.png'
 
 function HomeButton(){
 
@@ -12,10 +12,16 @@ function HomeButton(){
      }
 
      return (
-        <Button onClick={navigateHandler}>
+
+        <HomeButtonDiv>
+
+ <Button onClick={navigateHandler}>
             <ButtonPic src={homeImg} alt="Home Button" />
             Home
             </Button>
+
+        </HomeButtonDiv>
+       
      )
 };
 

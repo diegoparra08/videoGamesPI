@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getDetail, clearDetail } from '../../Redux/actions';
 
-import { DetailImg } from "./Detail.styles";
+import { DetailImg, DetailContainerDiv, DescriptionP, DetailTextUl, DetailLi, DetailTextH4, DetailTitleH2 } from "./Detail.styles";
 
 function Detail() {
 
@@ -17,36 +17,36 @@ function Detail() {
     }, [id, dispatch]);
 
     return (
-        <div>
-            <h2>Here is more on this Game...</h2>
+        <DetailContainerDiv>
+          
             <DetailImg src={detailedGame.image && detailedGame.image} alt={detailedGame.name} />
-            <h2>{detailedGame.name}</h2>
-            <h4>Game ID: {detailedGame.id}</h4>
-            <ul>
+            <DetailTitleH2>{detailedGame.name}</DetailTitleH2>
+            <DetailTextH4>Game ID:  {detailedGame.id}</DetailTextH4>
+            <DetailTextUl>
                 {detailedGame.genres && detailedGame.genres.length > 0 ? (
-                    <li>
+                    <DetailLi>
                        <strong>Genres: </strong> {detailedGame.genres.map(genre => genre.name).join(', ')}
-                    </li>
+                    </DetailLi>
                 ) : (
-                    <li>Genres: Not defined</li>
+                    <DetailLi>Genres: Not defined</DetailLi>
                 )}
-            </ul>
+            </DetailTextUl>
 
-            <ul>
+            <DetailTextUl>
                 {detailedGame.platforms && detailedGame.platforms.length > 0 ? (
-                    <li>
-                        <strong>Platforms:</strong> {detailedGame.platforms.map(platform => platform.name).join(', ')}
-                    </li>
+                    <DetailLi>
+                        <strong>Platforms:  </strong> {detailedGame.platforms.map(platform => platform.name).join(', ')}
+                    </DetailLi>
                 ) : (
-                    <li>Platforms: Not defined</li>
+                    <DetailLi>Platforms: Not defined</DetailLi>
                 )}
-            </ul>
-            <h4>Rating: {detailedGame?.rating}</h4>
-            <h4>Released on: {detailedGame?.released}</h4>
-            <p>{detailedGame?.description}</p>
+            </DetailTextUl>
+            <DetailTextH4>Rating:  {detailedGame?.rating}</DetailTextH4>
+            <DetailTextH4>Released on:  {detailedGame?.released}</DetailTextH4>
+            <DescriptionP>{detailedGame?.description}</DescriptionP>
 
 
-        </div>
+        </DetailContainerDiv>
     )
 };
 

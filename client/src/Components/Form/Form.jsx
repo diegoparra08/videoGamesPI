@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Validate from './Validation';
 import { loadGenres, postNewGame } from '../../Redux/actions';
 
-import { FormItSelf } from './Form.styles';
+import { FormItSelf, SearchInput, XButtonSpan, CreateLabels, Xbutton, ErrorBanners, DescriptionBanner, CreateTitleH2, SelectOptions, CreateButton } from './Form.styles';
 
 
 function CreateGame() {
@@ -118,67 +118,67 @@ function CreateGame() {
                 <FormItSelf action="" onSubmit={handleSubmit}>
 
                 
-                <h2>Create A New Game</h2>
+                <CreateTitleH2>Create A New Game</CreateTitleH2>
 
-                {errors.initial && <p className="error-message">{errors.initial}</p>}
+                {errors.initial && <ErrorBanners className="error-message">{errors.initial}</ErrorBanners>}
 
-                    <label>Game Name</label>
-                    <input type="text" placeholder="Put name here..." name='name' onChange={handleChange} value={gameInfo.value} />
-                    {errors.name && <p className="error-message">{errors.name}</p>}
+                    <CreateLabels>Game Name</CreateLabels>
+                    <SearchInput type="text" placeholder="Put name here..." name='name' onChange={handleChange} value={gameInfo.value} />
+                    {errors.name && <ErrorBanners className="error-message">{errors.name}</ErrorBanners>}
 
-                    <label>Game Description</label>
-                    <textarea type="text" placeholder="At least 30 characters..." name='description' onChange={handleChange} cols={80} rows={15} />
-                    {errors.description && <p className="error-message">{errors.description}</p>}
+                    <CreateLabels>Game Description</CreateLabels>
+                    <DescriptionBanner type="text" placeholder="At least 30 characters..." name='description' onChange={handleChange} cols={100} rows={10} />
+                    {errors.description && <ErrorBanners className="error-message">{errors.description}</ErrorBanners>}
 
 
-                    <label>Platforms Available</label>
+                    <CreateLabels>Platforms Available</CreateLabels>
                     <div>
-                        <select name="platforms" onChange={handleChange}>
+                        <SelectOptions name="platforms" onChange={handleChange}>
                             <option value='' >Select platforms...</option>
                             {platforms.map(platform => (<option key={platform} value={platform}>{platform}</option>))}
-                        </select>
-                        {/* <button type="button" onClick={handleAddGenre}>Add Genre</button> */}
-                        {errors.platforms && <p className="error-message">{errors.platforms}</p>}
+                        </SelectOptions>
+                        
+                        {errors.platforms && <ErrorBanners className="error-message">{errors.platforms}</ErrorBanners>}
                     </div>
                     <div>
                         {gameInfo.platforms.map(platform => (
-                            <span key={platform} className="genre-tag">{platform}
-                                <button type="button" className="remove-button" onClick={handleRemovePlatform}> X </button>
-                            </span>
+                            <XButtonSpan key={platform} >{platform}
+                                <Xbutton type="button"  onClick={handleRemovePlatform}> X </Xbutton>
+                            </XButtonSpan>
                         ))}
                     </div>
 
 
-                    <label>Released Date</label>
-                    <input type="text" name='released' placeholder='YYYY-MM-DD' onChange={handleChange} />
-                    {errors.released && <p className="error-message">{errors.released}</p>}
+                    <CreateLabels>Released Date</CreateLabels>
+                    <SearchInput type="text" name='released' placeholder='YYYY-MM-DD' onChange={handleChange} />
+                    {errors.released && <ErrorBanners className="error-message">{errors.released}</ErrorBanners>}
 
-                    <label>Game Generes</label>
+                    <CreateLabels>Game Generes</CreateLabels>
                     <div>
-                        <select name="genres" onChange={handleChange}>
+                        <SelectOptions name="genres" onChange={handleChange}>
                             <option value='' >Select game genres...</option>
                             {allGenres.map(genre => (<option key={genre.name} value={genre.name}>{genre.name}</option>))}
-                        </select>
+                        </SelectOptions>
                        
-                        {errors.genres && <p className="error-message">{errors.genres}</p>}
+                        {errors.genres && <ErrorBanners className="error-message">{errors.genres}</ErrorBanners>}
                     </div>
                     <div>
                         {gameInfo.genres.map((genre, index) => (
-                            <span key={genre} className="genre-tag">{genre}
-                                <button type="button" className="remove-button" onClick={() => handleRemoveGenre(index)}> X </button>
-                            </span>
+                            <XButtonSpan key={genre}>{genre}
+                                <Xbutton type="button"  onClick={() => handleRemoveGenre(index)}> X </Xbutton>
+                            </XButtonSpan>
                         ))}
                     </div>
 
-                    <label>Image URL</label>
-                    <input type="url" name='image' placeholder='Put a valid URL to image' onChange={handleChange} />
-                    {errors.image && <p className="error-message">{errors.image}</p>}
+                    <CreateLabels>Image URL</CreateLabels>
+                    <SearchInput type="url" name='image' placeholder='Put a valid URL to image' onChange={handleChange} />
+                    {errors.image && <ErrorBanners className="error-message">{errors.image}</ErrorBanners>}
 
-                    <label>Game Rating</label>
-                    <input type="text" name='rating' placeholder='Format X.XX' onChange={handleChange} />
-                    {errors.rating && <p className="error-message">{errors.rating}</p>}
+                    <CreateLabels>Game Rating</CreateLabels>
+                    <SearchInput type="text" name='rating' placeholder='Format X.XX' onChange={handleChange} />
+                    {errors.rating && <ErrorBanners className="error-message">{errors.rating}</ErrorBanners>}
 
-                    <button type="submit" disabled={handleRenderButton()}> Create Game </button>
+                    <CreateButton type="submit" disabled={handleRenderButton()}> Create Game </CreateButton>
                   
 
                 </FormItSelf>

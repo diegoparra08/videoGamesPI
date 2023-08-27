@@ -1,12 +1,13 @@
 import CreateGame from "../../Components/Form/Form";
-// import GameForm from "../../Components/Form/formmm";
+
+import { FormContainerDiv } from './FormPage.stules'
 
 
 function Form(){
     return (
-        <div className="from">
+        <FormContainerDiv className="from">
            <CreateGame/>
-        </div>
+        </FormContainerDiv>
     )
 };
 
