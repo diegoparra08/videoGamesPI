@@ -7,7 +7,7 @@ function GameCard({ game }) {
     const { name, image, genres, id } = game;
     const navigate = useNavigate();
 
-    function navigateHandler() { //Permite que al hacer click se dirija al detail. se pasa como onClic
+    function navigateHandler() { 
         navigate(`/detail/${id}`)
      }
 

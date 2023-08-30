@@ -10,8 +10,8 @@ function OriginButton() {
     const dispatch = useDispatch();
     const [isActive, setIsActive] = useState(null);
 
-    function handleOriginClick(origin) {   //hace el despacho de la funcion filterByOrigin con el valor del origen
-        dispatch(filterByOrigin(origin)) //que viene del boton
+    function handleOriginClick(origin) {  
+        dispatch(filterByOrigin(origin)) 
         setIsActive(origin)
     }
 

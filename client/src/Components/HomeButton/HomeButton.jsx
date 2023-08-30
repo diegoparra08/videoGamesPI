@@ -7,7 +7,7 @@ function HomeButton(){
 
     const navigate = useNavigate();
 
-    function navigateHandler() { //Permite que al hacer click se dirija al detail. se pasa como onClic
+    function navigateHandler() { 
         navigate('/home')
      }
 

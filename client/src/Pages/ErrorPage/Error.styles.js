@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 
-
-export const AboutContainerDiv = styled.div`
+export const ErrorDiv = styled.div`
 display: flex;
 flex-direction: column;
 justify-content: center;
@@ -13,13 +12,9 @@ background: linear-gradient(to bottom, #333333, #2e2e2e);
 height: 100vh;
 font-family: Bangers;
 `
-export const TextContainer = styled.div`
-
-background-color: #01c4e7;
-color: #4a09c1;
-width: 750px;
+export const ImageError = styled.img`
+margin-top: 15px;
+width: 450px;
 font-size: 30px;
 border-radius: 10px;
 `
-
-

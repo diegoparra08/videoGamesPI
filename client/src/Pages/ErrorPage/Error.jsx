@@ -1,9 +1,13 @@
+import { ErrorDiv, ImageError } from './Error.styles'
+
+import image from '../../Images/error.jpg'
 
 function Error(){
     return (
-        <div className="error">
-            Error!
-        </div>
+        <ErrorDiv className="error">
+            Error! Please go back to Home.
+        <ImageError src={image} alt='Error'/>
+        </ErrorDiv>
     )
 };
 

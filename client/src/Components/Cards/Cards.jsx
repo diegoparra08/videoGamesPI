@@ -3,20 +3,18 @@ import { CardsContainerDiv, NoResultsBanerP, NoResultContainer } from './Cards.s
 
 function Cards({ allGames }) {
 
-    console.log('Hola', allGames);
-    
     const gameList = allGames;
 
     return (
         <CardsContainerDiv>
 
-{gameList.length > 0 ? (
+            {gameList.length > 0 ? (
                 gameList.map((game) => (
                     <GameCard key={game.id} game={game} />
                 ))
             ) : (
                 <NoResultContainer>
-                <NoResultsBanerP>No results Sorry! Try a different search.</NoResultsBanerP>
+                    <NoResultsBanerP>No results Sorry! Try a different search.</NoResultsBanerP>
                 </NoResultContainer>
             )}
 

@@ -59,8 +59,6 @@ const rootReducer = (state = initialState, action) => {
         filteredGames: filteredByGenre,
       };
 
-  
-
     case FILTER_BY_ORIGIN:
       const filteredByOrigin = state.copyAllGames.filter(game => game.origin === action.payload)
       return {
@@ -69,8 +67,6 @@ const rootReducer = (state = initialState, action) => {
         allGames: filteredByOrigin,
         filteredGames: filteredByOrigin,
       };
-     
-
 
     case ORDER_ALPHABETICALLY:
       if (state.filteredGames.length > 0) {
@@ -85,7 +81,6 @@ const rootReducer = (state = initialState, action) => {
         return {
           ...state,
           allGames: sortedFilteredGamesAlpha,
-          
           activeOrder: 'alphabetical',
         }
       } else {
@@ -119,7 +114,6 @@ const rootReducer = (state = initialState, action) => {
         return {
           ...state,
           allGames: sortedFilteredGamesRating,
-          // copyAllGames: sortedGamesRating,
           activeOrder: 'rating',
         }
       } else {

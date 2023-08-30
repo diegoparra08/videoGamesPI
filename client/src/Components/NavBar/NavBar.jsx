@@ -42,6 +42,3 @@ function NavBar({ handleSubmit, handleChange }) {
 
 
 export default NavBar;
-
-//! El from recibe el handleSubmit significa que se despacha la info al hacer click o enter.
-//! el onChange actualiza el estado del componente Home y ayuda a enviar el string que servira para buscar

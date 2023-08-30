@@ -14,11 +14,11 @@ import { CardContainer, ContentContainer, SidePanel, LoadingContainer, ByGenreBa
 
 
 function Home() {
-    const dispatch = useDispatch(); //Permite hacer el dispatch de las peticiones desde acá
-    const allGames = useSelector((state) => state.allGames); //Esto permite suscribir este componente al estado de allGames
+    const dispatch = useDispatch(); 
+    const allGames = useSelector((state) => state.allGames); 
     const allGenres = useSelector((state) => state.genres);
-    const filteredGames = useSelector((state) => state.filteredGames);
-    const [search, setSearch] = useState(""); //se setea el estado del input
+
+    const [search, setSearch] = useState(""); 
     const [page, setPage] = useState(1);
     const [loadingTime, setLoadingTime] = useState(true);
 
@@ -32,12 +32,12 @@ function Home() {
     
 
 
-    function handleChange(event) { //recibe lo que se pone en el input y se lo asigna al estado search
+    function handleChange(event) { 
         event.preventDefault();
         setSearch(event.target.value)
     };
 
-    function handleSubmit(event) { //despacha la funcion de searchByname con el string que viene delestado search
+    function handleSubmit(event) {
         event.preventDefault();
 
         if (search === "") {
@@ -47,14 +47,14 @@ function Home() {
         }
     };
 
-    useEffect(() => { //useEffect controla el ciclo de vida del componente
-        dispatch(loadGames()); //usa el dispatch para hacer el mount de todos los juegos
-        dispatch(loadGenres()); // carga los generos cuando se va a home.
+    useEffect(() => { 
+        dispatch(loadGames()); 
+        dispatch(loadGenres()); 
 
         const timer = setTimeout(() => {
-            setLoadingTime(false); // Mostrar resultados después de 2 segundos
+            setLoadingTime(false); 
 
-        }, 2000); // 2 segundos en milisegundos
+        }, 2000);
 
         return () => clearTimeout(timer);
 

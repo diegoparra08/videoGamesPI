@@ -12,7 +12,7 @@ function CreateGame() {
     const dispatch = useDispatch();
     const allGenres = useSelector((state) => state.genres);
 
-    useEffect(() => { //useEffect controla el ciclo de vida del componente
+    useEffect(() => { 
         dispatch(loadGenres());
     }, []);
 
@@ -48,7 +48,6 @@ function CreateGame() {
 
     function handleChange(event) {
         const { name, value } = event.target;
-
 
         if (name === 'platforms' || name === 'genres') {
             if (gameInfo[name].includes(value)) {

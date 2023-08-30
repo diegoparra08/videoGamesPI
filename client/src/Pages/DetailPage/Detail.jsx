@@ -1,5 +1,5 @@
-import { useParams } from "react-router-dom"; //permite recibir el 
-import { useEffect } from "react";
+import { useParams } from "react-router-dom"; 
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getDetail, clearDetail } from '../../Redux/actions';
 
@@ -11,21 +11,27 @@ function Detail() {
     const dispatch = useDispatch();
     const detailedGame = useSelector((state) => state.gameDetail)
 
-    useEffect(() => { //useEffect controla el ciclo de vida del componente
-        dispatch(getDetail(id))//usa el dispatch para hacer el mount de todos los juegos
-        return () => dispatch(clearDetail())
+
+    useEffect(() => { 
+        dispatch(getDetail(id))
+
+        return () => { dispatch(clearDetail())};
+
     }, [id, dispatch]);
 
+
+
     return (
+
         <DetailContainerDiv>
-          
+
             <DetailImg src={detailedGame.image && detailedGame.image} alt={detailedGame.name} />
             <DetailTitleH2>{detailedGame.name}</DetailTitleH2>
             <DetailTextH4>Game ID:  {detailedGame.id}</DetailTextH4>
             <DetailTextUl>
                 {detailedGame.genres && detailedGame.genres.length > 0 ? (
                     <DetailLi>
-                       <strong>Genres: </strong> {detailedGame.genres.map(genre => genre.name).join(', ')}
+                        <strong>Genres: </strong> {detailedGame.genres.map(genre => genre.name).join(', ')}
                     </DetailLi>
                 ) : (
                     <DetailLi>Genres: Not defined</DetailLi>
