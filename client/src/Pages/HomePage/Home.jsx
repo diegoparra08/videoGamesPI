@@ -29,7 +29,7 @@ function Home() {
     const end = (page - 1) * cardsByPage + cardsByPage;
 
     const allGamesWithPagination = allGames.slice(start, end);
-    const anyFiltered = filteredGames === 0;
+    
 
 
     function handleChange(event) { //recibe lo que se pone en el input y se lo asigna al estado search
@@ -87,7 +87,7 @@ function Home() {
                         <OriginButton />
                         <div>
                             <ByGenreBannerH4>By Genre</ByGenreBannerH4>
-                            <GenrePanel allGenres={allGenres} />
+                            <GenrePanel allGenres={allGenres} page={page} setPage={setPage}/>
                         </div>
 
                     </SidePanel>

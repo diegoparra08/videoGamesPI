@@ -103,7 +103,7 @@ const getGameByName = async (name) => {
 const dbGames = await Videogame.findAll({
     where: {
         name: {
-            [Op.iLike]: `%${name}%`,
+            [Op.eq]: name,
         }
     },
     include: [{ model: Genre, attributes: ['name', 'id'], through: { attributes: [] } }],

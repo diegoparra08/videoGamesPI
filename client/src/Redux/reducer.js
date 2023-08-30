@@ -1,3 +1,4 @@
+
 import {
   LOAD_GAMES, LOAD_GENRES, SEARCH_BY_NAME, GET_DETAIL, POST_NEW_GAME, CLEAR_DETAIL,
   FILTER_BY_GENRE, FILTER_BY_ORIGIN, ORDER_ALPHABETICALLY, ORDER_BY_RATING, RESET
@@ -64,7 +65,7 @@ const rootReducer = (state = initialState, action) => {
       const filteredByOrigin = state.copyAllGames.filter(game => game.origin === action.payload)
       return {
         ...state,
-        filters: [action.payload], // Reiniciar los filtros al aplicar un nuevo filtro
+        filters: [action.payload], 
         allGames: filteredByOrigin,
         filteredGames: filteredByOrigin,
       };
@@ -84,6 +85,7 @@ const rootReducer = (state = initialState, action) => {
         return {
           ...state,
           allGames: sortedFilteredGamesAlpha,
+          
           activeOrder: 'alphabetical',
         }
       } else {

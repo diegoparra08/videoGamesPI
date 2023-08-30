@@ -70,7 +70,8 @@ function CreateGame() {
         setErrors(Validate({
             ...gameInfo,
             [name]: value,
-        }))
+        }));
+
     };
 
     function handleRemovePlatform(index) {
@@ -109,6 +110,7 @@ function CreateGame() {
         }
     
         return disabled;
+        
     }
 
 
@@ -151,7 +153,7 @@ function CreateGame() {
 
                     <CreateLabels>Released Date</CreateLabels>
                     <SearchInput type="text" name='released' placeholder='YYYY-MM-DD' onChange={handleChange} />
-                    {errors.released && <ErrorBanners className="error-message">{errors.released}</ErrorBanners>}
+                    {(errors.released) && <ErrorBanners className="error-message">{errors.released}</ErrorBanners>}
 
                     <CreateLabels>Game Generes</CreateLabels>
                     <div>
