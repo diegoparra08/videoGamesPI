@@ -34,22 +34,27 @@ export function loadGames() {
     };
 };
 
-export function searchByName(name) {
+export function searchByName(name, setSearchResultsFound) {
     const endpoint = `http://localhost:3001/videogames?name=${name}`;
 
     return async (dispatch) => {
         try {
             const { data } = await axios.get(endpoint);
-
-            return dispatch({
+            console.log('payload length', data.length, data);
+            dispatch({
                 type: SEARCH_BY_NAME,
                 payload: data,
             });
+            setSearchResultsFound(data.length > 0);
         } catch (error) {
-            return { error: error.message }
-        };
+            if (error.response && error.response.status === 404) {
+                setSearchResultsFound(false);
+            } 
+            return { error: error.message };
+        }
     };
 };
+
 
 export function loadGenres() {
     const endpoint = `http://localhost:3001/genres`;

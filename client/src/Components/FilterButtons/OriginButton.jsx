@@ -5,7 +5,7 @@ import { filterByOrigin } from "../../Redux/actions";
 import { ByOriginBannerH4, SingleButtonOrigin, OriginButtonContainerDiv } from "./OriginButton.styles";
 import { useState } from "react";
 
-function OriginButton() {
+function OriginButton({ setSearchResultsFound }) {
 
     const dispatch = useDispatch();
     const [isActive, setIsActive] = useState(null);
@@ -13,6 +13,7 @@ function OriginButton() {
     function handleOriginClick(origin) {  
         dispatch(filterByOrigin(origin)) 
         setIsActive(origin)
+        setSearchResultsFound(true);
     }
 
     return (

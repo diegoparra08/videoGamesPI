@@ -47,8 +47,7 @@ const postGame = async (req, res) => {
         if ( !name || !description || !platforms || !released || !image || !rating || !genres ) {
             throw new Error('Missing game info!')
         } else {
-        //    const genreNames = genres.map(genre => genre.name);
-            // const genreNames = genres.name;
+    
             const gameToAdd = await postNewGame({ name, description, platforms, released, image, rating, genres})
             return res.status(200).json(gameToAdd);
         }

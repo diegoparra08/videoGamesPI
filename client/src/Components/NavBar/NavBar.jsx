@@ -1,8 +1,9 @@
 import { useNavigate } from "react-router-dom";
 
+
 import { NavBarContainer, LandingButton, ButtonsDiv, SearchButton, SearchInput, SearchForm } from './NavBar.styles';
 
-function NavBar({ handleSubmit, handleChange }) {
+function NavBar({ handleSubmit, handleChange, search }) {
 
 
 
@@ -18,13 +19,15 @@ function NavBar({ handleSubmit, handleChange }) {
 
     function handleLandingButton() {
         navigate('/')
-    }
+    };
+
 
     return (
         <NavBarContainer>
             <SearchForm onSubmit={(event) => handleSubmit(event)}>
-                <SearchInput type="search" placeholder="Type in the name" onChange={(event) => handleChange(event)} />
+                <SearchInput type="search" placeholder="Type in the name" value={search} onChange={(event) => handleChange(event)} />
                 <SearchButton type="submit">Search</SearchButton>
+
             </SearchForm>
             <ButtonsDiv>
 

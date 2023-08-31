@@ -1,5 +1,3 @@
-//Todos los controllers para games
-
 const axios = require('axios');
 require('dotenv').config();
 const { API_KEY } = process.env;
@@ -23,7 +21,6 @@ const mapGame = (game) => ({
     }))
 });
 
-// Función de mapeo para una lista de juegos
 const mapGamesList = (games) => games.map(mapGame);
 
 const getAllGames = async () => {
@@ -54,7 +51,7 @@ const getAllGames = async () => {
 const getGameByID = async (id) => {
 
     function removeHtmlTags(input) {
-        return input.replace(/<\/?[^>]+(>|$)/g, "");  //reemplaza todos los simbolos por un string vacio
+        return input.replace(/<\/?[^>]+(>|$)/g, ""); 
     }
 
     if (/^[0-9]+$/.test(id)) {
@@ -79,7 +76,7 @@ const getGameByID = async (id) => {
     }
 
     if (/^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/.test(id)) {
-        // Si el ID es un UUID, busca en la base de datos
+   
         const game = await Videogame.findOne({
             where: { id },
             include: [{ model: Genre, attributes: ["name", "id"], through: { attributes: [] } }] //incluye el genre al buscar el juego
@@ -97,7 +94,7 @@ const getGameByName = async (name) => {
     const apiResponse = await axios.get(`${URL}?key=${API_KEY}&search=${name}`)
 
     const apiGames = apiResponse.data.results
-    .slice(0, 15) // Limitar a las primeras 15 respuestas
+    .slice(0, 15) 
     .map(game => mapGame(game));
 
 const dbGames = await Videogame.findAll({
@@ -107,7 +104,7 @@ const dbGames = await Videogame.findAll({
         }
     },
     include: [{ model: Genre, attributes: ['name', 'id'], through: { attributes: [] } }],
-    limit: 15 // Limitar a las primeras 15 respuestas
+    limit: 15 
 });
 
 const combinedGames = [...apiGames, ...dbGames];
@@ -138,11 +135,9 @@ const postNewGame = async ({ name, description, platforms, released, image, rati
           },
         },
       });
-
-    //   console.log('Selected genres:', selectedGenres.map(genre => genre.toJSON()));
   
-      await gameToAdd.addGenres(selectedGenres); //addGenres se habilita al hacer una relacion many to many
-      console.log('Genres added to game.');
+      await gameToAdd.addGenres(selectedGenres); 
+  
       const relationGame = await Videogame.findOne({
         where: {id: gameToAdd.id},
         include:[{model :Genre, attributes: ["name", "id"], through: {attributes: []}}]

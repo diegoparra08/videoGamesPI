@@ -14,11 +14,13 @@ import { CardContainer, ContentContainer, SidePanel, LoadingContainer, ByGenreBa
 
 
 function Home() {
-    const dispatch = useDispatch(); 
-    const allGames = useSelector((state) => state.allGames); 
+    const dispatch = useDispatch();
+    const allGames = useSelector((state) => state.allGames);
     const allGenres = useSelector((state) => state.genres);
 
-    const [search, setSearch] = useState(""); 
+    const [search, setSearch] = useState("");
+    const [searchResultsFound, setSearchResultsFound] = useState(true);
+
     const [page, setPage] = useState(1);
     const [loadingTime, setLoadingTime] = useState(true);
 
@@ -29,10 +31,10 @@ function Home() {
     const end = (page - 1) * cardsByPage + cardsByPage;
 
     const allGamesWithPagination = allGames.slice(start, end);
-    
 
 
-    function handleChange(event) { 
+
+    function handleChange(event) {
         event.preventDefault();
         setSearch(event.target.value)
     };
@@ -43,18 +45,23 @@ function Home() {
         if (search === "") {
             alert("Must provide a name to search")
         } else {
-            dispatch(searchByName(search))
+            // dispatch(searchByName(search)
+            dispatch(searchByName(search, setSearchResultsFound))
+            setSearch("")
         }
+        
     };
 
-    useEffect(() => { 
-        dispatch(loadGames()); 
-        dispatch(loadGenres()); 
+    useEffect(() => {
+        dispatch(loadGames());
+        dispatch(loadGenres());
 
         const timer = setTimeout(() => {
-            setLoadingTime(false); 
+            setLoadingTime(false);
 
         }, 2000);
+
+        setSearchResultsFound(true);
 
         return () => clearTimeout(timer);
 
@@ -62,7 +69,7 @@ function Home() {
 
     return (
         <div>
-            <NavBar handleChange={handleChange} handleSubmit={handleSubmit} />
+            <NavBar handleChange={handleChange} handleSubmit={handleSubmit} search={search}/>
 
             {loadingTime ?
 
@@ -84,19 +91,26 @@ function Home() {
 
                     <SidePanel>
 
-                        <OriginButton />
+                        <OriginButton setSearchResultsFound={setSearchResultsFound}/>
                         <div>
                             <ByGenreBannerH4>By Genre</ByGenreBannerH4>
-                            <GenrePanel allGenres={allGenres} page={page} setPage={setPage}/>
+                            <GenrePanel allGenres={allGenres} page={page} setPage={setPage} setSearchResultsFound={setSearchResultsFound}/>
                         </div>
 
                     </SidePanel>
-
                     <CardContainer>
+                        {searchResultsFound ? (
+                            <Cards allGames={allGamesWithPagination} />
+                        ) : (
+                            <div>No se encontraron resultados</div>
+                        )}
+                    </CardContainer>
+
+                    {/* <CardContainer>
 
                         <Cards allGames={allGamesWithPagination} />
 
-                    </CardContainer>
+                    </CardContainer> */}
 
 
                 </HomeContainerDiv>}
