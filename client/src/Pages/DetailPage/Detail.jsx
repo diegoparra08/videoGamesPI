@@ -10,7 +10,7 @@ function Detail() {
     const { id } = useParams();
     const dispatch = useDispatch();
     const detailedGame = useSelector((state) => state.gameDetail)
-
+    console.log(detailedGame);
 
     useEffect(() => { 
         dispatch(getDetail(id))
