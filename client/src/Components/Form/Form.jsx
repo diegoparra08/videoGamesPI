@@ -46,32 +46,37 @@ function CreateGame() {
 
     });
 
+    
     function handleChange(event) {
         const { name, value } = event.target;
-
+    
+        let updatedValue;
+    
         if (name === 'platforms' || name === 'genres') {
             if (gameInfo[name].includes(value)) {
-                return;
+                updatedValue = gameInfo[name].filter(item => item !== value);
             } else {
-                setGameInfo({
-                    ...gameInfo,
-                    [name]: [...gameInfo[name], value],
-                });
+                updatedValue = [...gameInfo[name], value];
             }
-            event.target.value = '';
+    
+            setGameInfo({
+                ...gameInfo,
+                [name]: updatedValue,
+            });
+
         } else {
             setGameInfo({
                 ...gameInfo,
                 [name]: value,
             });
         }
-
+    
         setErrors(Validate({
             ...gameInfo,
-            [name]: value,
+            [name]: updatedValue || value,
         }));
-
-    };
+    }
+    
 
     function handleRemovePlatform(index) {
         const newPlatforms = gameInfo.platforms.slice();
@@ -79,6 +84,11 @@ function CreateGame() {
         setGameInfo({
             ...gameInfo,
             platforms: newPlatforms,
+        });
+
+        setErrors({
+            ...errors,
+            platforms: newPlatforms.length === 0 ? "You need to select at least one platform" : "",
         });
     }
 
@@ -88,6 +98,11 @@ function CreateGame() {
         setGameInfo({
             ...gameInfo,
             genres: newGenres,
+        });
+
+        setErrors({
+            ...errors,
+            genres: newGenres.length === 0 ? "You need to select at least one Genre" : "",
         });
     };
 
@@ -139,7 +154,7 @@ function CreateGame() {
                             {platforms.map(platform => (<option key={platform} value={platform}>{platform}</option>))}
                         </SelectOptions>
                         
-                        {errors.platforms && <ErrorBanners className="error-message">{errors.platforms}</ErrorBanners>}
+                        {(errors.platforms) && <ErrorBanners >{errors.platforms}</ErrorBanners>}
                     </div>
                     <div>
                         {gameInfo.platforms.map(platform => (
@@ -187,6 +202,5 @@ function CreateGame() {
         )
     };
 
+
     export default CreateGame;
-
-

@@ -110,14 +110,7 @@ function Home() {
                             </NoResultContainer>
                         )}
                     </CardContainer>
-
-                    {/* <CardContainer>
-
-                        <Cards allGames={allGamesWithPagination} />
-
-                    </CardContainer> */}
-
-
+                    
                 </HomeContainerDiv>}
         </div>
     );

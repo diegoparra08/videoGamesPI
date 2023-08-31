@@ -50,4 +50,3 @@ function Validate(game){
 
 export default Validate;
 
-

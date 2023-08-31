@@ -15,7 +15,7 @@ function GenrePanel({allGenres, setPage, setSearchResultsFound}){
             {genreList?.map((genre) => (
                 <GenreButton key={genre.id} 
                 genre={genre}
-                activeGenre={activeGenre} // Pasa el estado activeGenre
+                activeGenre={activeGenre} 
           setActiveGenre={setActiveGenre}
           setPage={setPage}
           setSearchResultsFound={setSearchResultsFound}
