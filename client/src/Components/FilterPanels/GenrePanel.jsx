@@ -3,7 +3,7 @@ import { useState } from 'react';
 import GenreButton from "../FilterButtons/GenreButton";
 import { GenrePanelDiv } from "./GenrePanel.styles";
 
-function GenrePanel({allGenres, page, setPage, setSearchResultsFound}){
+function GenrePanel({allGenres, setPage, setSearchResultsFound}){
 
     const genreList = allGenres;
 
@@ -17,7 +17,6 @@ function GenrePanel({allGenres, page, setPage, setSearchResultsFound}){
                 genre={genre}
                 activeGenre={activeGenre} // Pasa el estado activeGenre
           setActiveGenre={setActiveGenre}
-          page={page}
           setPage={setPage}
           setSearchResultsFound={setSearchResultsFound}
           />

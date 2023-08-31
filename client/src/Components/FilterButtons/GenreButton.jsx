@@ -4,7 +4,7 @@ import { filterByGenre } from "../../Redux/actions";
 
 import { SingleButton } from "./GenreButton.styles";
 
-function GenreButton({genre, activeGenre, setActiveGenre, page, setPage, setSearchResultsFound}){
+function GenreButton({genre, activeGenre, setActiveGenre, setPage, setSearchResultsFound}){
 
 
     const dispatch = useDispatch();

@@ -11,7 +11,7 @@ import ResetButton from '../../Components/FilterButtons/ResetButton';
 import Pagination from '../../Components/Pagination/Pagination';
 
 import { CardContainer, ContentContainer, SidePanel, LoadingContainer, ByGenreBannerH4, LoadingText, HomeContainerDiv, LoadingBar, LoadingBarFill } from './Home.styles';
-
+import { NoResultsBanerP, NoResultContainer } from '../../Components/Cards/Cards.styles'
 
 function Home() {
     const dispatch = useDispatch();
@@ -46,10 +46,11 @@ function Home() {
             alert("Must provide a name to search")
         } else {
             // dispatch(searchByName(search)
-            dispatch(searchByName(search, setSearchResultsFound))
-            setSearch("")
+            dispatch(searchByName(search, setSearchResultsFound));
+            setSearch("");
+            setPage(1);
         }
-        
+
     };
 
     useEffect(() => {
@@ -69,7 +70,7 @@ function Home() {
 
     return (
         <div>
-            <NavBar handleChange={handleChange} handleSubmit={handleSubmit} search={search}/>
+            <NavBar handleChange={handleChange} handleSubmit={handleSubmit} search={search} />
 
             {loadingTime ?
 
@@ -91,10 +92,10 @@ function Home() {
 
                     <SidePanel>
 
-                        <OriginButton setSearchResultsFound={setSearchResultsFound}/>
+                        <OriginButton setSearchResultsFound={setSearchResultsFound} />
                         <div>
                             <ByGenreBannerH4>By Genre</ByGenreBannerH4>
-                            <GenrePanel allGenres={allGenres} page={page} setPage={setPage} setSearchResultsFound={setSearchResultsFound}/>
+                            <GenrePanel allGenres={allGenres}  setPage={setPage} setSearchResultsFound={setSearchResultsFound} />
                         </div>
 
                     </SidePanel>
@@ -102,7 +103,11 @@ function Home() {
                         {searchResultsFound ? (
                             <Cards allGames={allGamesWithPagination} />
                         ) : (
-                            <div>No se encontraron resultados</div>
+                            <NoResultContainer>
+                                <NoResultsBanerP>
+                                    No results Sorry! Try a different search.
+                                </NoResultsBanerP>
+                            </NoResultContainer>
                         )}
                     </CardContainer>
 
