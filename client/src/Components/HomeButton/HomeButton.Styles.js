@@ -7,8 +7,8 @@ display: flex;
 flex-direction: column;
 align-items: center;
 justify-content: center;
-background-color: #01c4e7;
-color: #4a09c1;
+background-color: #273469;
+color: #48ACF0;
 font-family: Bangers;
 `
 
@@ -19,6 +19,7 @@ width: 30px;
 export const HomeButtonDiv = styled.div`
 display: flex;
 align-items: center;
-justify-content: center;
-background-color: rgb(110, 110, 110);
+justify-content: left;
+padding: 10px 10px;
+background: linear-gradient(to right, #111D4A, #065A82);
 `

@@ -52,10 +52,9 @@ export const LoadingBarFill = styled.div`
 `;
 
 export const HomeContainerDiv = styled.div`
-background-color: #333333;
-box-shadow: 0px 0px 10px rgba(51, 51, 51, 0.7); 
-background: linear-gradient(to bottom, #333333, #2e2e2e);
 
+box-shadow: 0px 0px 10px rgba(51, 51, 51, 0.7); 
+background: linear-gradient(to right, #111D4A, #065A82);
 `
 
 export const SidePanel = styled.div`
@@ -84,5 +83,7 @@ font-family: Bangers;
 margin-top: 20px;
 margin-bottom: 10px;
 margin-right: 35px;
-
+`
+export const PaginationDiv = styled.div`
+margin-top: 5px;
 `

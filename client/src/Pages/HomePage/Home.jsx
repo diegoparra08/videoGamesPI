@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { loadGames, loadGenres, searchByName } from '../../Redux/actions';
+import { loadGames, loadGenres, searchByName, filterByOrigin, filterByGenre } from '../../Redux/actions';
 
 import NavBar from '../../Components/NavBar/NavBar';
 import Cards from '../../Components/Cards/Cards';
@@ -10,13 +10,14 @@ import OrderComponent from '../../Components/Order/Order';
 import ResetButton from '../../Components/FilterButtons/ResetButton';
 import Pagination from '../../Components/Pagination/Pagination';
 
-import { CardContainer, ContentContainer, SidePanel, LoadingContainer, ByGenreBannerH4, LoadingText, HomeContainerDiv, LoadingBar, LoadingBarFill } from './Home.styles';
+import { CardContainer, ContentContainer, PaginationDiv, SidePanel, LoadingContainer, ByGenreBannerH4, LoadingText, HomeContainerDiv, LoadingBar, LoadingBarFill } from './Home.styles';
 import { NoResultsBanerP, NoResultContainer } from '../../Components/Cards/Cards.styles'
 
 function Home() {
     const dispatch = useDispatch();
     const allGames = useSelector((state) => state.allGames);
     const allGenres = useSelector((state) => state.genres);
+    const filters = useSelector((state) => state.filters);
 
     const [search, setSearch] = useState("");
     const [searchResultsFound, setSearchResultsFound] = useState(true);
@@ -45,7 +46,6 @@ function Home() {
         if (search === "") {
             alert("Must provide a name to search")
         } else {
-            // dispatch(searchByName(search)
             dispatch(searchByName(search, setSearchResultsFound));
             setSearch("");
             setPage(1);
@@ -53,13 +53,25 @@ function Home() {
 
     };
 
+
     useEffect(() => {
-        dispatch(loadGames());
+
         dispatch(loadGenres());
+
+        if (filters.length > 0) {
+            let filterValue = filters[0];
+
+            if (filterValue === 'Api' || filterValue === 'Data Base') {
+                dispatch(filterByOrigin(filterValue));
+            } else {
+                dispatch(filterByGenre(filterValue));
+            }
+        } else {
+            dispatch(loadGames());
+        }
 
         const timer = setTimeout(() => {
             setLoadingTime(false);
-
         }, 2000);
 
         setSearchResultsFound(true);
@@ -84,7 +96,6 @@ function Home() {
 
                     <ContentContainer>
 
-                        <Pagination page={page} setPage={setPage} maximum={Math.ceil(maximum)} />
                         <OrderComponent />
                         <ResetButton />
 
@@ -95,8 +106,12 @@ function Home() {
                         <OriginButton setSearchResultsFound={setSearchResultsFound} />
                         <div>
                             <ByGenreBannerH4>By Genre</ByGenreBannerH4>
-                            <GenrePanel allGenres={allGenres}  setPage={setPage} setSearchResultsFound={setSearchResultsFound} />
+                            <GenrePanel allGenres={allGenres} setPage={setPage} setSearchResultsFound={setSearchResultsFound} />
+
                         </div>
+                        <PaginationDiv>
+                            <Pagination page={page} setPage={setPage} maximum={Math.ceil(maximum)} />
+                        </PaginationDiv>
 
                     </SidePanel>
                     <CardContainer>
@@ -110,7 +125,7 @@ function Home() {
                             </NoResultContainer>
                         )}
                     </CardContainer>
-                    
+
                 </HomeContainerDiv>}
         </div>
     );

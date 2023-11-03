@@ -6,15 +6,16 @@ flex-direction: column;
 align-items: center;
 justify-content: center; 
 padding: 50px 200px 100px 200px;
+background: linear-gradient(to right, #111D4A, #065A82);
 `
 
 export const SearchInput = styled.input`
 display: flex;
 border-color: solid #01c4e7;
-border-radius: 7px;
-color: #01c4e7;
 width: 250px;
-background-color:#4a09c1;
+border-radius: 5px;
+color: #48ACF0;
+background: #273469;
 box-shadow: -3px 6px 8px rgba(0, 0, 0, .1);
 height: 30px;
 font-family: Bangers;
@@ -26,10 +27,9 @@ white-space: nowrap;
 export const DescriptionBanner = styled.textarea`
 display: flex;
 border-color: solid #01c4e7;
-border-radius: 7px;
-color: #01c4e7;
-
-background-color:#4a09c1;
+border-radius: 5px;
+color: #48ACF0;
+background: #273469;
 box-shadow: -3px 6px 8px rgba(0, 0, 0, .1);
 
 font-family: Bangers;
@@ -57,10 +57,10 @@ white-space: nowrap;
 export const SelectOptions = styled.select`
 display: flex;
 border-color: solid #01c4e7;
-border-radius: 7px;
-color: #01c4e7;
 width: 250px;
-background-color:#4a09c1;
+border-radius: 5px;
+color: #48ACF0;
+background: #273469;
 box-shadow: -3px 6px 8px rgba(0, 0, 0, .1);
 height: 30px;
 font-family: Bangers;
@@ -77,9 +77,9 @@ justify-content: center;
 border-color: solid #4a09c1;
 border-radius: 7px;
 margin-top: 10px;
-color: #4a09c1;
+color: #48ACF0;
 width: 115px;
-background-color: #01c4e7;
+background-color: #273469; 
 box-shadow: -3px 6px 8px rgba(0, 0, 0, .1);
 height: 30px;
 font-family: Bangers;
@@ -91,6 +91,13 @@ white-space: nowrap;
   &:hover {
     transform: scale(1.05);
 }
+
+&:disabled {
+   
+    background-color: #ccc;
+    color: #666;
+    cursor: not-allowed; 
+  }
 
 `
 
@@ -117,9 +124,9 @@ align-items: center;
 justify-content: center; 
 border-color: solid #4a09c1;
 border-radius: 7px;
-color: #4a09c1;
+color: #48ACF0;
 width: 25px;
-background-color: #01c4e7;
+background-color: #273469; 
 box-shadow: -3px 6px 8px rgba(0, 0, 0, .1);
 height: 20px;
 font-family: Bangers;

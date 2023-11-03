@@ -37,121 +37,122 @@ const rootReducer = (state = initialState, action) => {
         allGames: action.payload,
       };
 
-    case GET_DETAIL:
+      case GET_DETAIL: 
       return {
         ...state,
         gameDetail: action.payload,
       };
+      
     case CLEAR_DETAIL:
-      return {
-        ...state,
-        gameDetail: {},
-      }
+return {
+  ...state,
+  gameDetail: {},
+}
 
     case FILTER_BY_GENRE:
-      const filteredByGenre = state.copyAllGames.filter(game =>
-        game.genres.some(genre => genre.id === action.payload)
-      )
-      return {
-        ...state,
-        filters: [action.payload],
-        allGames: filteredByGenre,
-        filteredGames: filteredByGenre,
-      };
+const filteredByGenre = state.copyAllGames.filter(game =>
+  game.genres.some(genre => genre.id === action.payload)
+)
+return {
+  ...state,
+  filters: [action.payload],
+  allGames: filteredByGenre,
+  filteredGames: filteredByGenre,
+};
 
     case FILTER_BY_ORIGIN:
-      const filteredByOrigin = state.copyAllGames.filter(game => game.origin === action.payload)
-      return {
-        ...state,
-        filters: [action.payload], 
-        allGames: filteredByOrigin,
-        filteredGames: filteredByOrigin,
-      };
+const filteredByOrigin = state.copyAllGames.filter(game => game.origin === action.payload)
+return {
+  ...state,
+  filters: [action.payload],
+  allGames: filteredByOrigin,
+  filteredGames: filteredByOrigin,
+};
 
     case ORDER_ALPHABETICALLY:
-      if (state.filteredGames.length > 0) {
-        const sortedFilteredGamesAlpha = state.filteredGames.slice().sort((a, b) => {
-          if (action.payload === 'A-Z') {
-            return a.name.localeCompare(b.name);
-          } else {
-            return b.name.localeCompare(a.name);
-          }
-        });
+if (state.filteredGames.length > 0) {
+  const sortedFilteredGamesAlpha = state.filteredGames.slice().sort((a, b) => {
+    if (action.payload === 'A-Z') {
+      return a.name.localeCompare(b.name);
+    } else {
+      return b.name.localeCompare(a.name);
+    }
+  });
 
-        return {
-          ...state,
-          allGames: sortedFilteredGamesAlpha,
-          activeOrder: 'alphabetical',
-        }
-      } else {
-        const orderTypeAlpha = action.payload;
-        const sortedGamesAlpha = state.copyAllGames.slice().sort((a, b) => {
-          if (orderTypeAlpha === 'A-Z') {
-            return a.name.localeCompare(b.name);
-          } else {
-            return b.name.localeCompare(a.name);
-          }
-        });
+  return {
+    ...state,
+    allGames: sortedFilteredGamesAlpha,
+    activeOrder: 'alphabetical',
+  }
+} else {
+  const orderTypeAlpha = action.payload;
+  const sortedGamesAlpha = state.copyAllGames.slice().sort((a, b) => {
+    if (orderTypeAlpha === 'A-Z') {
+      return a.name.localeCompare(b.name);
+    } else {
+      return b.name.localeCompare(a.name);
+    }
+  });
 
-        return {
-          ...state,
-          allGames: sortedGamesAlpha,
-          activeOrder: 'alphabetical',
-        };
-      }
+  return {
+    ...state,
+    allGames: sortedGamesAlpha,
+    activeOrder: 'alphabetical',
+  };
+}
 
     case ORDER_BY_RATING:
-      if (state.filteredGames.length > 0) {
-        const orderTypeRating = action.payload;
-        const sortedFilteredGamesRating = state.filteredGames.slice().sort((a, b) => {
-          if (orderTypeRating === 'Ascending') {
-            return a.rating - b.rating;
-          } else {
-            return b.rating - a.rating;
-          }
-        });
+if (state.filteredGames.length > 0) {
+  const orderTypeRating = action.payload;
+  const sortedFilteredGamesRating = state.filteredGames.slice().sort((a, b) => {
+    if (orderTypeRating === 'Ascending') {
+      return a.rating - b.rating;
+    } else {
+      return b.rating - a.rating;
+    }
+  });
 
-        return {
-          ...state,
-          allGames: sortedFilteredGamesRating,
-          activeOrder: 'rating',
-        }
-      } else {
-        const orderTypeRating = action.payload;
-        const sortedGamesRating = state.copyAllGames.slice().sort((a, b) => {
-          if (orderTypeRating === 'Ascending') {
-            return a.rating - b.rating;
-          } else {
-            return b.rating - a.rating;
-          }
-        });
+  return {
+    ...state,
+    allGames: sortedFilteredGamesRating,
+    activeOrder: 'rating',
+  }
+} else {
+  const orderTypeRating = action.payload;
+  const sortedGamesRating = state.copyAllGames.slice().sort((a, b) => {
+    if (orderTypeRating === 'Ascending') {
+      return a.rating - b.rating;
+    } else {
+      return b.rating - a.rating;
+    }
+  });
 
-        return {
-          ...state,
-          allGames: sortedGamesRating,
-          copyAllGames: sortedGamesRating,
-          activeOrder: 'rating',
-        };
-      }
+  return {
+    ...state,
+    allGames: sortedGamesRating,
+    copyAllGames: sortedGamesRating,
+    activeOrder: 'rating',
+  };
+}
 
 
     case RESET:
-      return {
-        ...state,
-        allGames: state.backUpAllGames,
-        copyAllGames: state.backUpAllGames,
-      };
+return {
+  ...state,
+  allGames: state.backUpAllGames,
+  copyAllGames: state.backUpAllGames,
+};
 
     case POST_NEW_GAME:
-      return {
-        ...state,
-        copyAllGames: action.payload,
-        allGames: action.payload
+return {
+  ...state,
+  copyAllGames: action.payload,
+  allGames: action.payload
 
-      }
+}
 
     default:
-      return state;
+return state;
   }
 };
 

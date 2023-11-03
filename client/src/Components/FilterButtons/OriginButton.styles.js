@@ -6,9 +6,9 @@ align-items: center;
 justify-content: center; 
 border-color: solid #4a09c1;
 border-radius: 7px;
-color: #4a09c1;
+color: #48ACF0;
 width: 115px;
-background-color: #01c4e7;
+background-color: #273469;
 box-shadow: -3px 6px 8px rgba(0, 0, 0, .9);
 height: 30px;
 font-family: Bangers;
@@ -24,8 +24,8 @@ white-space: nowrap;
 ${props =>
     props.isActive &&
     `
-    background-color: #4a09c1;
-    color: #01c4e7;
+    background-color: #48ACF0;
+    color: #273469;
   `}
 `
 

@@ -9,9 +9,9 @@ align-items: center;
 justify-content: center; 
 border-color: solid #4a09c1;
 border-radius: 7px;
-color: #4a09c1;
+color: #48ACF0;
 width: 115px;
-background-color: #01c4e7;
+background-color: #273469;
 box-shadow: -3px 6px 8px rgba(0, 0, 0, .1);
 height: 30px;
 font-family: Bangers;
@@ -24,8 +24,8 @@ white-space: nowrap;
     transform: scale(1.05);
 }
 &:active {
-    background-color: #4a09c1;
-    color: #01c4e7;
+  background-color: #48ACF0;
+    color: #273469;
 }
 `
 
@@ -42,9 +42,9 @@ align-items: center;
 justify-content: center; 
 border-color: solid #4a09c1;
 border-radius: 7px;
-color: #4a09c1;
+color: #48ACF0;
 width: 60px;
-background-color: #01c4e7;
+background-color: #273469; 
 box-shadow: -3px 6px 8px rgba(0, 0, 0, .1);
 height: 30px;
 font-family: Bangers;
@@ -57,19 +57,18 @@ white-space: nowrap;
     transform: scale(1.05);
 }
 &:active {
-    background-color: #4a09c1;
-    color: #01c4e7;
+  opacity: 0.8;
 }
 `
 export const SearchInput = styled.input`
 display: flex;
 align-items: center;
 justify-content: center; 
-border-color: solid #01c4e7;
-border-radius: 7px;
-color: #01c4e7;
+border-color:  #4a09c1;
+border-radius: 5px;
+color: #48ACF0;
 width: 250px;
-background-color:#4a09c1;
+background: #273469;
 box-shadow: -3px 6px 8px rgba(0, 0, 0, .1);
 height: 30px;
 font-family: Bangers;
@@ -88,7 +87,7 @@ margin-bottom: 10px;
 `
 
 export const NavBarContainer = styled.nav`
-background-color: rgb(110, 110, 110);
+background: linear-gradient(to right, #111D4A, #065A82);
 padding: 20px;
 `
 

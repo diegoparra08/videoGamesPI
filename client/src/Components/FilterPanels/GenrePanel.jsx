@@ -27,4 +27,3 @@ function GenrePanel({allGenres, setPage, setSearchResultsFound}){
 };
 
 export default GenrePanel;
-
